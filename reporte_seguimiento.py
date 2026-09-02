@@ -138,13 +138,13 @@ def comprobar_disparo(glue, job_name, activado_dt):
         p = posteriores[0]
         return {
             'estado': 'DISPARADO',
-            'detalle': f"{p.get('JobRunState')} @ {p.get('StartedOn')} (tras activarse el schedule)",
+            'detalle': f"{p.get('JobRunState')} @ {_fmt_utc(_aware(p.get('StartedOn')))} (tras activarse el schedule)",
             'run_state': p.get('JobRunState'),
         }
 
     # No hay runs posteriores al switch todavía. Mostramos el último real,
     # dejando claro que fue ANTES de activarse (probablemente el trigger viejo).
-    detalle = f"Aún sin ejecución tras activarse. Último run: {ult.get('JobRunState')} @ {ult_started}"
+    detalle = f"Aún sin ejecución tras activarse. Último run: {ult.get('JobRunState')} @ {_fmt_utc(ult_started)}"
     if activado_dt:
         detalle += f" (schedule activo desde {activado_dt.strftime('%Y-%m-%d %H:%M UTC')})"
     return {'estado': 'PENDIENTE', 'detalle': detalle}
