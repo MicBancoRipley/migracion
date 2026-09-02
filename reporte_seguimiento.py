@@ -106,7 +106,22 @@ def _lo_disparo_eventbridge(run):
     return tn == ''
 
 
-def comprobar_disparo(glue, job_name, activado_dt, sql_file_key=None):
+def _estado_trigger_viejo(glue, trigger_name):
+    """Devuelve el State actual del Glue trigger viejo, o None si no existe.
+
+    Sirve para distinguir un AMBIGUO real (trigger sigue ACTIVATED = doble
+    disparo) de una falsa alarma (trigger ya DEACTIVATED/eliminado = la corrida
+    que vimos fue el 'último suspiro' antes de apagarlo)."""
+    from botocore.exceptions import ClientError
+    if not trigger_name:
+        return None
+    try:
+        return glue.get_trigger(Name=trigger_name)['Trigger'].get('State')
+    except ClientError:
+        return 'ELIMINADO'  # ya no existe: alguien lo borró tras migrar
+
+
+def comprobar_disparo(glue, job_name, activado_dt, sql_file_key=None, trigger_name=None):
     """
     Comprueba si ESTE schedule específico disparó el job DESPUÉS de activarse.
 
@@ -182,12 +197,25 @@ def comprobar_disparo(glue, job_name, activado_dt, sql_file_key=None):
     aun_por_trigger = [r for r in mias_post if not _lo_disparo_eventbridge(r)]
     if aun_por_trigger:
         u = max(aun_por_trigger, key=lambda r: _aware(r.get('StartedOn')))
+        nombre_trig = (u.get('TriggerName') or '').strip()
+        # ¿El trigger viejo sigue vivo? Eso decide si es alarma real o falsa.
+        estado_trig = _estado_trigger_viejo(glue, trigger_name or nombre_trig)
+        if estado_trig == 'ACTIVATED':
+            # 🔴 DOBLE DISPARO real: trigger viejo activo + schedule nuevo activo.
+            return {
+                'estado': 'AMBIGUO',
+                'detalle': (f"⚠️ DOBLE DISPARO: el trigger viejo '{nombre_trig}' sigue ACTIVATED "
+                            f"y lanzó el job @ {_fmt_utc(_aware(u.get('StartedOn')))}. "
+                            f"Apágalo: el schedule nuevo ya está activo."),
+            }
+        # Trigger ya DEACTIVATED/ELIMINADO -> la corrida vista fue el último
+        # disparo del trigger justo antes de apagarlo. NO hay doble disparo.
         return {
-            'estado': 'AMBIGUO',
-            'detalle': (f"Corrió tras el switch pero la lanzó el TRIGGER viejo "
-                        f"'{(u.get('TriggerName') or '').strip()}' @ "
-                        f"{_fmt_utc(_aware(u.get('StartedOn')))}. EventBridge aún no toma el control "
-                        f"(¿el trigger viejo sigue activo?)."),
+            'estado': 'DISPARADO',
+            'detalle': (f"OK. Última corrida por el trigger viejo @ "
+                        f"{_fmt_utc(_aware(u.get('StartedOn')))} fue su último disparo; "
+                        f"el trigger quedó {estado_trig}. EventBridge ya tiene el control."),
+            'run_state': u.get('JobRunState'),
         }
 
     # No hay corrida propia posterior al switch todavía.
@@ -244,7 +272,8 @@ def construir_datos(scheduler, glue):
         # El --sql_file_key ÚNICO de este schedule (para distinguir su corrida
         # dentro del job compartido por cientos de schedules).
         sql_file_key = (inp.get('Arguments') or {}).get('--sql_file_key')
-        disparo = comprobar_disparo(glue, job_name, activado_dt, sql_file_key)
+        trigger_viejo = s.get('Name', '').replace('-schedule', '-trigger')
+        disparo = comprobar_disparo(glue, job_name, activado_dt, sql_file_key, trigger_viejo)
 
         # --- DIAGNÓSTICO por consola (todo en UTC real, para no adivinar) ---
         def _u(dt):
