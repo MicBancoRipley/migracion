@@ -121,7 +121,8 @@ def _estado_trigger_viejo(glue, trigger_name):
         return 'ELIMINADO'  # ya no existe: alguien lo borró tras migrar
 
 
-def comprobar_disparo(glue, job_name, activado_dt, sql_file_key=None, trigger_name=None):
+def comprobar_disparo(glue, job_name, activado_dt, sql_file_key=None, trigger_name=None,
+                      job_compartido=True):
     """
     Comprueba si ESTE schedule específico disparó el job DESPUÉS de activarse.
 
@@ -163,8 +164,41 @@ def comprobar_disparo(glue, job_name, activado_dt, sql_file_key=None, trigger_na
 
     activado_dt = _aware(activado_dt)
 
-    # Si no conocemos el sql_file_key de este schedule, NO podemos discriminar
-    # quién disparó el job compartido -> lo decimos claramente (no mentimos).
+    # CASO A: el job NO es compartido (este schedule es su único dueño, p.ej.
+    # los de monitoreo: cost-monitor, iam-changes, etc.). No necesita
+    # --sql_file_key para desambiguar: basta ver si SU job corrió tras el switch.
+    if not job_compartido:
+        eb = [r for r in runs
+              if _lo_disparo_eventbridge(r)
+              and _aware(r.get('StartedOn')) and activado_dt
+              and _aware(r.get('StartedOn')) >= activado_dt]
+        if eb:
+            p = max(eb, key=lambda r: _aware(r.get('StartedOn')))
+            return {'estado': 'DISPARADO',
+                    'detalle': f"{p.get('JobRunState')} @ {_fmt_utc(_aware(p.get('StartedOn')))} "
+                               f"(job exclusivo, EventBridge)",
+                    'run_state': p.get('JobRunState')}
+        # ¿corrió por el trigger viejo tras el switch? -> chequear si sigue activo
+        por_trig = [r for r in runs
+                    if not _lo_disparo_eventbridge(r)
+                    and _aware(r.get('StartedOn')) and activado_dt
+                    and _aware(r.get('StartedOn')) >= activado_dt]
+        if por_trig:
+            u = max(por_trig, key=lambda r: _aware(r.get('StartedOn')))
+            est = _estado_trigger_viejo(glue, trigger_name or (u.get('TriggerName') or '').strip())
+            if est == 'ACTIVATED':
+                return {'estado': 'AMBIGUO',
+                        'detalle': f"⚠️ DOBLE DISPARO: trigger viejo ACTIVATED @ "
+                                   f"{_fmt_utc(_aware(u.get('StartedOn')))}. Apágalo."}
+            return {'estado': 'DISPARADO',
+                    'detalle': f"OK. Último disparo por trigger viejo @ "
+                               f"{_fmt_utc(_aware(u.get('StartedOn')))}; quedó {est}.",
+                    'run_state': u.get('JobRunState')}
+        return {'estado': 'PENDIENTE',
+                'detalle': 'Job exclusivo sin corridas tras el switch todavía.'}
+
+    # CASO B: el job ES compartido. Sin --sql_file_key NO podemos discriminar
+    # quién disparó -> lo decimos claramente (no mentimos).
     if not sql_file_key:
         return {
             'estado': 'AMBIGUO',
@@ -253,6 +287,21 @@ def _fmt_utc(dt):
 
 def construir_datos(scheduler, glue):
     schedules = listar_schedules_migrados(scheduler)
+
+    # Contar cuántos schedules apuntan a cada job. Un job usado por >1 schedule
+    # es "compartido" (p.ej. redshift-segmentation) y necesita --sql_file_key
+    # para desambiguar. Un job usado por 1 solo schedule es exclusivo (monitoreo).
+    from collections import Counter
+    conteo_job = Counter()
+    for s in schedules:
+        try:
+            _inp = json.loads(s.get('Target', {}).get('Input', '{}'))
+        except Exception:
+            _inp = {}
+        _job = _inp.get('JobName')
+        if _job:
+            conteo_job[_job] += 1
+
     datos = []
     for s in schedules:
         target = s.get('Target', {})
@@ -273,7 +322,9 @@ def construir_datos(scheduler, glue):
         # dentro del job compartido por cientos de schedules).
         sql_file_key = (inp.get('Arguments') or {}).get('--sql_file_key')
         trigger_viejo = s.get('Name', '').replace('-schedule', '-trigger')
-        disparo = comprobar_disparo(glue, job_name, activado_dt, sql_file_key, trigger_viejo)
+        job_compartido = conteo_job.get(job_name, 0) > 1
+        disparo = comprobar_disparo(glue, job_name, activado_dt, sql_file_key,
+                                    trigger_viejo, job_compartido)
 
         # --- DIAGNÓSTICO por consola (todo en UTC real, para no adivinar) ---
         def _u(dt):
