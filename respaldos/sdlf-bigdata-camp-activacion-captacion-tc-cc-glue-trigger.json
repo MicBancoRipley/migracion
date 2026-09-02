@@ -1,0 +1,19 @@
+{
+  "Name": "sdlf-bigdata-camp-activacion-captacion-tc-cc-glue-trigger",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(00 15 * * ? *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-segmentation-schedule-glue-job",
+      "Arguments": {
+        "--additional-python-modules": "awscli==1.23.5,boto3==1.22.5,sqlparse==0.4.3",
+        "--sql_file_key": "redshift-sql-scheduled/call_sp_camp_activacion_captacion_tc_cc.sql",
+        "--vs_notification": "campanas"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "trigger to call_sp_camp_activacion_captacion_tc_cc",
+  "_respaldado_en": "2026-09-02T16:06:40.817244+00:00"
+}

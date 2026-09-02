@@ -1,0 +1,27 @@
+{
+  "Name": "sdlf-bigdata-planes-step1-trigger",
+  "Type": "CONDITIONAL",
+  "State": "ACTIVATED",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-segmentation-schedule-glue-job",
+      "Arguments": {
+        "--sql_file_key": "redshift-sql-scheduled/call_sp_run_tablon_alta_planes.sql"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "",
+  "Predicate": {
+    "Logical": "AND",
+    "Conditions": [
+      {
+        "LogicalOperator": "EQUALS",
+        "JobName": "sdlf-bigdata-worflow-planes-data-quality-psh-glue-job",
+        "State": "SUCCEEDED"
+      }
+    ]
+  },
+  "WorkflowName": "sdlf-bigdata-planes-workflow",
+  "_respaldado_en": "2026-09-02T16:06:49.866734+00:00"
+}

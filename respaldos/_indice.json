@@ -1,0 +1,2417 @@
+[
+  {
+    "trigger": "sdlf-bigdata-abr-historico-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-abr-historico-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044661+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-billeteras-enrolamiento-wallet-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-billeteras-enrolamiento-wallet-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044699+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-call-adquisicion-ga4-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-call-adquisicion-ga4-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044712+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-call-sftp-sender-ctbl-base-trabajo-email-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-call-sftp-sender-ctbl-base-trabajo-email-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044721+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-call-sp-bases-cumpleanos-puntos-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-call-sp-bases-cumpleanos-puntos-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044731+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-call-sp-camp-mail-tecnologia-spos-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-call-sp-camp-mail-tecnologia-spos-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044739+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-call-sp-cptp-marca-captados-base-retail-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-call-sp-cptp-marca-captados-base-retail-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044747+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-call-sp-ctbl-consolidado-listas-negras-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-call-sp-ctbl-consolidado-listas-negras-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044754+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-call-sp-pff-actualizar-av-motor-mes-actual-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-call-sp-pff-actualizar-av-motor-mes-actual-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044762+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-call-sp-pff-actualizar-sav-motor-mes-actual-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-call-sp-pff-actualizar-sav-motor-mes-actual-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044768+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-call-sp-tr-cliente-alto-valor-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-call-sp-tr-cliente-alto-valor-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044776+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-camp-activacion-captacion-tc-cc-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-camp-activacion-captacion-tc-cc-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044786+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-camp-cross-tamcc-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-camp-cross-tamcc-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044793+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-camp-descansos-adq-diarios-glue-trigger",
+    "estado": "ok",
+    "state_original": "DEACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-camp-descansos-adq-diarios-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044801+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-camp-reporte-funnel-contactabilidad-ppff-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-camp-reporte-funnel-contactabilidad-ppff-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044809+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-camp-rmkt-dap-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-camp-rmkt-dap-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044817+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-camp-share-data-master-seguros-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-camp-share-data-master-seguros-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044825+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-camp-sobregiro-45-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-camp-sobregiro-45-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044833+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-camp-source-purge-msl-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-camp-source-purge-msl-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044839+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-cbtl-email-autom-refactor-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-cbtl-email-autom-refactor-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044842+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-clts-ahorro-opex-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-clts-ahorro-opex-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044845+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-clts-marca-pan-anterior-glue-trigger",
+    "estado": "ok",
+    "state_original": "CREATED",
+    "archivo": "respaldos\\sdlf-bigdata-clts-marca-pan-anterior-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044848+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-clts-matriz-rentabilidad-banco-retail-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-clts-matriz-rentabilidad-banco-retail-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044853+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-clts-matriz-rentabilidad-banco-retail-mujeres-c1c2c3-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-clts-matriz-rentabilidad-banco-retail-mujeres-c1c2c3-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044857+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-clts-matriz-rentabilidad-corp-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-clts-matriz-rentabilidad-corp-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044860+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-clts-matriz-rentabilidad-retail-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-clts-matriz-rentabilidad-retail-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044863+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-clts-planes.recaudacion-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-clts-planes.recaudacion-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044867+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-clts-productos-segmentos-glue-trigger",
+    "estado": "ok",
+    "state_original": "CREATED",
+    "archivo": "respaldos\\sdlf-bigdata-clts-productos-segmentos-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044870+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-clts-sp-bases-giftcard-latam-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-clts-sp-bases-giftcard-latam-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044873+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-clts-sp-seguimiento-canjes-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-clts-sp-seguimiento-canjes-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044876+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-clts-universo-panes-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-clts-universo-panes-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044879+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-contratos-itf-tg-job",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-contratos-itf-tg-job.json",
+    "fecha": "2026-09-02T16:08:00.044883+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-cptp-adquisicion-funnel-presencial-cierre-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-cptp-adquisicion-funnel-presencial-cierre-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044888+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-cptp-adquisicion-funnel-presencial-sc-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-cptp-adquisicion-funnel-presencial-sc-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044894+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-cptp-altas-tc-cc-platun-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-cptp-altas-tc-cc-platun-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044899+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-cptp-captaciones-monoproducto-cc-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-cptp-captaciones-monoproducto-cc-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044904+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-cptp-foto-tablon-adquisicion-inicio-mes-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-cptp-foto-tablon-adquisicion-inicio-mes-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044910+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-cptp-tablon-campana-adquisicion-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-cptp-tablon-campana-adquisicion-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044915+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-ctbl-base-gestion-ccr-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-ctbl-base-gestion-ccr-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044920+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-ctbl-fipers-mae-lib-neg-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-ctbl-fipers-mae-lib-neg-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044926+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-dgtl-leads-abr-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-dgtl-leads-abr-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044932+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-fabrica-eventos-hipotecarios-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-fabrica-eventos-hipotecarios-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044938+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-mdpg-trx-otros-bancos-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-mdpg-trx-otros-bancos-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044944+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-mpdg-panel-concrecion-spos-tda-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-mpdg-panel-concrecion-spos-tda-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044950+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-mpdg-seguimiento-vta-unimarc-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-mpdg-seguimiento-vta-unimarc-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044953+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-mpdg-tablon-comunicacion-spos-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-mpdg-tablon-comunicacion-spos-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044956+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-mpdg-zoom-uso-unimarc-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-mpdg-zoom-uso-unimarc-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044959+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-oferta-cc-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-oferta-cc-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044962+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-planes-step1-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-planes-step1-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044965+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-platun-step3-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-platun-step3-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044968+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-ppff-funnel-av-historico-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-ppff-funnel-av-historico-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044971+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-ppff-funnel-sav-historia-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-ppff-funnel-sav-historia-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044974+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-ppff-new-funnel-av-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-ppff-new-funnel-av-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044977+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-ppff-new-funnel-sav-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-ppff-new-funnel-sav-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044980+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-ppff-sobregiro-planes-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-ppff-sobregiro-planes-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044986+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-query-seg-diario-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-query-seg-diario-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044991+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-reporte-abr-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-reporte-abr-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.044997+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-run_sp_cptp_seguimiento_vinculacion_abr_pat_cof-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-run_sp_cptp_seguimiento_vinculacion_abr_pat_cof-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045002+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-arq-unload-shared-table-actividad-tr-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-arq-unload-shared-table-actividad-tr-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045007+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-arq-unload-shared-tables-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-arq-unload-shared-tables-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045013+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-base-ivr-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-base-ivr-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045019+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-base-nps-dormidos-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-base-nps-dormidos-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045025+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-bitr-maestra-sucursales-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-bitr-maestra-sucursales-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045030+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-camp-aumento-cupo-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-camp-aumento-cupo-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045035+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-camp-capta-alto-valor-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-camp-capta-alto-valor-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045040+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-camp-crosseling-cc-tc-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-camp-crosseling-cc-tc-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045046+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-camp-modelo-campana-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-camp-modelo-campana-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045052+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-camp-omp-com-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-camp-omp-com-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045058+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-camp-onboarding-cc-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-camp-onboarding-cc-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045064+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-camp-onboarding-puntos-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-camp-onboarding-puntos-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045067+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-camp-onboarding-spos-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-camp-onboarding-spos-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045071+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-camp-pagos-for-pagos-glue-trigger",
+    "estado": "ok",
+    "state_original": "CREATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-camp-pagos-for-pagos-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045074+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-camp-push-cobranza-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-camp-push-cobranza-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045077+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-camp-push-cupon-capta-glue-trigger",
+    "estado": "ok",
+    "state_original": "CREATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-camp-push-cupon-capta-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045080+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-camp-push-vence-DAP-glue-trigger-rds",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-camp-push-vence-DAP-glue-trigger-rds.json",
+    "fecha": "2026-09-02T16:08:00.045083+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-camp-retira-tam-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-camp-retira-tam-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045086+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-camp-rkmt-cc-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-camp-rkmt-cc-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045089+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-camp-rmkt-adqui-cc-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-camp-rmkt-adqui-cc-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045092+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-camp-rmkt-adqui-tc-cc-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-camp-rmkt-adqui-tc-cc-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045095+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-camp-rpass-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-camp-rpass-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045098+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-camp-score-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-camp-score-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045101+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-camp-tr-trx-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-camp-tr-trx-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045104+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-campanas-por-cliente-diario-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-campanas-por-cliente-diario-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045107+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-base-estudio-onboarding-glue-trigger",
+    "estado": "ok",
+    "state_original": "DEACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-base-estudio-onboarding-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045110+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-bases-cumpleaños-puntos-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-bases-cumpleaños-puntos-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045113+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-billeteras-enrolamientos-stock-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-billeteras-enrolamientos-stock-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045116+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-cactivos-kpi-compras-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-cactivos-kpi-compras-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045123+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-cactivos-kpi-loyalty-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-cactivos-kpi-loyalty-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045126+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-cactivos-kpi-ppff-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-cactivos-kpi-ppff-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045129+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-cargos-pat-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-cargos-pat-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045132+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-estrategias-evaluar-vencimientos-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-estrategias-evaluar-vencimientos-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045135+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-matriz-rentabilidad-corp-mujeres-c1c2c3-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-matriz-rentabilidad-corp-mujeres-c1c2c3-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045138+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-matriz-rentabilidad-retail-muijeres-c1c2c3-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-matriz-rentabilidad-retail-muijeres-c1c2c3-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045141+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-movimientos-wallet-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-movimientos-wallet-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045144+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-onboarding-12m-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-onboarding-12m-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045147+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-onboarding-new-12m-unicos-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-onboarding-new-12m-unicos-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045150+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-opex-canjesop-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-opex-canjesop-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045153+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-panel-integraL-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-panel-integraL-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045156+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-retira-plastico-tc-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-retira-plastico-tc-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045159+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-retira-td-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-retira-td-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045162+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-saldo-vencimiento-tg",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-saldo-vencimiento-tg.json",
+    "fecha": "2026-09-02T16:08:00.045166+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-segmento-gestion-diario-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-segmento-gestion-diario-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045169+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-seguim-clientes-con-saldo-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-seguim-clientes-con-saldo-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045172+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-seguimiento-cof-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-seguimiento-cof-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045175+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-seguros-asociados-tarjetas-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-seguros-asociados-tarjetas-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045178+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-tc-vigente-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-tc-vigente-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045181+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-universo-panes-actual-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-universo-panes-actual-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045184+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-unload-csv-acoustic-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-unload-csv-acoustic-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045187+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-vinculacion-diaria-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-vinculacion-diaria-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045190+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-clts-visitan-tienda-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-clts-visitan-tienda-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045193+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cmp-onb-alto-valor-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cmp-onb-alto-valor-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045196+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-contco-seguros-tg",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-contco-seguros-tg.json",
+    "fecha": "2026-09-02T16:08:00.045199+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-aceptacion-pop-up-cc-remunerada-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-aceptacion-pop-up-cc-remunerada-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045202+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-aceptacion-pop-up-vinculadores-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-aceptacion-pop-up-vinculadores-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045205+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-baja-planes-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-baja-planes-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045209+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-camada-cc-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-camada-cc-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045214+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-cierre-saldos-cc-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-cierre-saldos-cc-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045219+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-cierre-saldos-cv-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-cierre-saldos-cv-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045225+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-crea-tablas-tef-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-crea-tablas-tef-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045231+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-directorio-ctacte-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-directorio-ctacte-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045238+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-flujo-contingencia-cupones-glue-trigger",
+    "estado": "ok",
+    "state_original": "DEACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-flujo-contingencia-cupones-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045243+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-new-reporte-abr-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-new-reporte-abr-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045248+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-oferta-linea-credito-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-oferta-linea-credito-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045254+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-panel-adquisicion-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-panel-adquisicion-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045259+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-panel-cc-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-panel-cc-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045265+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-panel-directorio-cc-resumen-glue-job",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-panel-directorio-cc-resumen-glue-job.json",
+    "fecha": "2026-09-02T16:08:00.045270+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-panel-planes",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-panel-planes.json",
+    "fecha": "2026-09-02T16:08:00.045277+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-panels-dap-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-panels-dap-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045282+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-radiografia-cv-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-radiografia-cv-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045289+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-reporte-cc-remunerada-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-reporte-cc-remunerada-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045294+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-reporte-dap-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-reporte-dap-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045301+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-saldo-dap-cierre-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-saldo-dap-cierre-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045307+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-seguimiento-piloto-planes-presencial-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-seguimiento-piloto-planes-presencial-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045313+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-var-saldos-cc-cv-mes-actual-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-var-saldos-cc-cv-mes-actual-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045319+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-var-saldos-dap-diario-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-var-saldos-dap-diario-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045325+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-var-saldos-dap-ult-mes-cerrado-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-var-saldos-dap-ult-mes-cerrado-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045331+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-vencimiento-dap-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-vencimiento-dap-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045337+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cptp-vencimientos-dap-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cptp-vencimientos-dap-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045343+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-base-nombres-itf-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-base-nombres-itf-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045349+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-build-consentimientos-datamart-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-build-consentimientos-datamart-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045355+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-consent-sms-datamaster-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-consent-sms-datamaster-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045361+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-consent-wsp-datamaster-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-consent-wsp-datamaster-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045367+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-consentimientos-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-consentimientos-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045373+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-contactabilidad-capta-panel-integral-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-contactabilidad-capta-panel-integral-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045378+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-data-contacto-oc-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-data-contacto-oc-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045384+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-data-journeys-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-data-journeys-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045389+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-direcciones-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-direcciones-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045395+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-email-autom-refactor-glue-trigger",
+    "estado": "ok",
+    "state_original": "CREATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-email-autom-refactor-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045401+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-extraccion-bopers-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-extraccion-bopers-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045407+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-inhibir-not-call-area-seguros-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-inhibir-not-call-area-seguros-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045412+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-lnegro-car-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-lnegro-car-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045418+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-marca-contactabilidad-rut-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-marca-contactabilidad-rut-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045423+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-oferta-tc-td-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-oferta-tc-td-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045428+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-ppff-valida-trx-consumo-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-ppff-valida-trx-consumo-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045434+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-proc-contact-fonos-movil-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-proc-contact-fonos-movil-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045440+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-proc-demo-basket-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-proc-demo-basket-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045446+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-quiero-ser-cliente-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-quiero-ser-cliente-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045452+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-reporte-data-contacto-adquisicion-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-reporte-data-contacto-adquisicion-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045457+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-resumen-inhibiciones-sernac-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-resumen-inhibiciones-sernac-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045465+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-rutero-dir-rfraude-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-rutero-dir-rfraude-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045475+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-seg-ac-dat-bop-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-seg-ac-dat-bop-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045482+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-sender-notcall-ccr-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-sender-notcall-ccr-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045489+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-sernac-auris-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-sernac-auris-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045495+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-sernac-inhib-parte3-notcall-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-sernac-inhib-parte3-notcall-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045501+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-sernac-inhibir-parte1-banco-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-sernac-inhibir-parte1-banco-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045507+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-sernac-qa-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-sernac-qa-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045513+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-tr-captados-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-tr-captados-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045520+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-tr-fechas-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-tr-fechas-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045527+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-user-info-autom-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-user-info-autom-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045533+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ctbl-wca-sms-email-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ctbl-wca-sms-email-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045538+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-cupon-ref-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-cupon-ref-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045545+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-bases-diarias-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-bases-diarias-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045562+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-captacion-rmkt-tc-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-captacion-rmkt-tc-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045569+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-envios-synerise-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-envios-synerise-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045576+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-envios_datos_automaticos-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-envios_datos_automaticos-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045583+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-evolutivo-login-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-evolutivo-login-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045590+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-funnel-cuotizacion",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-funnel-cuotizacion.json",
+    "fecha": "2026-09-02T16:08:00.045597+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-funnel-dap-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-funnel-dap-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045604+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-funnel-leads-ppff-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-funnel-leads-ppff-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045611+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-funnel-por-hora-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-funnel-por-hora-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045617+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-funnel-ppff-captacion",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-funnel-ppff-captacion.json",
+    "fecha": "2026-09-02T16:08:00.045624+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-funnel-ppff-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-funnel-ppff-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045630+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-grupos-facturacion-tenencia-td-login-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-grupos-facturacion-tenencia-td-login-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045637+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-interaccion-synerise-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-interaccion-synerise-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045644+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-leads-ppff-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-leads-ppff-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045652+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-logeos-internet-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-logeos-internet-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045658+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-login-pwa-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-login-pwa-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045664+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-modelo-campanas-sms-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-modelo-campanas-sms-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045670+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-oferta-perfil-login-curses-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-oferta-perfil-login-curses-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045676+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-perfil-digital-login-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-perfil-digital-login-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045682+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-perfilamiento-curses-pwa-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-perfilamiento-curses-pwa-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045690+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-reporte-campanas-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-reporte-campanas-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045697+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-reporte-captacion-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-reporte-captacion-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045703+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-reporte-rpass-nuevo-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-reporte-rpass-nuevo-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045710+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-rpass-push-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-rpass-push-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045717+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-simulaciones-internet-auto-glue-trigger",
+    "estado": "ok",
+    "state_original": "CREATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-simulaciones-internet-auto-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045724+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-tablon-comunicacional-buckets-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-tablon-comunicacional-buckets-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045731+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-venta-ripley-oferta-tc-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-venta-ripley-oferta-tc-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045738+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-dgtl-venta-seguros-real-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-dgtl-venta-seguros-real-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045744+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-digital-ppff-rmkt-push-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-digital-ppff-rmkt-push-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045751+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-digital-recordatorio-ppff-push-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-digital-recordatorio-ppff-push-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045759+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-earq-count-dup-cdcreporitf-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-earq-count-dup-cdcreporitf-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045766+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-earq-count-dup-cdcreporitf2-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-earq-count-dup-cdcreporitf2-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045772+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-earq-count-dup-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-earq-count-dup-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045778+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-earq-drop-tables-workspace-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-earq-drop-tables-workspace-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045785+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-earq-seguim-uso-tablas-redshift-dm-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-earq-seguim-uso-tablas-redshift-dm-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045791+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-earq-shared-planif-com-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-earq-shared-planif-com-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045798+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-earq-shared-tablas-bopers-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-earq-shared-tablas-bopers-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045804+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-earq-tablas-actualizacion-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-earq-tablas-actualizacion-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045810+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-earq-update-mpdt004-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-earq-update-mpdt004-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045830+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-earq-update-mpdt011-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-earq-update-mpdt011-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045837+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-earq-update-mpdt012-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-earq-update-mpdt012-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045844+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-earq-update-mpdt113-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-earq-update-mpdt113-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045851+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-earq-update-mpdt151-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-earq-update-mpdt151-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045859+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-earq-update-mpdt182-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-earq-update-mpdt182-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045867+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-earq-update-mpdt205-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-earq-update-mpdt205-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045873+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-earq-update-mpdt206-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-earq-update-mpdt206-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045881+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-earq-update-mpdt207-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-earq-update-mpdt207-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045888+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-earq-update-mpdt209-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-earq-update-mpdt209-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045894+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-earq-update-mpdt462-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-earq-update-mpdt462-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045901+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-fact-email-reimpresion-tam-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-fact-email-reimpresion-tam-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045908+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-funnel-ppff-presencial-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-funnel-ppff-presencial-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045914+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-matinal-step-0",
+    "estado": "ok",
+    "state_original": "DEACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-matinal-step-0.json",
+    "fecha": "2026-09-02T16:08:00.045921+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-matinal_parte-2-trigger",
+    "estado": "ok",
+    "state_original": "DEACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-matinal_parte-2-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045929+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-mdpg-analisis-cuotas-depto-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-mdpg-analisis-cuotas-depto-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045936+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-mdpg-cascada-medio-pago-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-mdpg-cascada-medio-pago-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045943+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-mdpg-clave-coordenadas-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-mdpg-clave-coordenadas-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045950+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-mdpg-clave-unica-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-mdpg-clave-unica-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045956+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-mdpg-cliente-unico-vn-glue-trigger",
+    "estado": "ok",
+    "state_original": "CREATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-mdpg-cliente-unico-vn-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045963+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-mdpg-contratos-itf-glue-trigger",
+    "estado": "ok",
+    "state_original": "CREATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-mdpg-contratos-itf-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045970+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-mdpg-cup-presencial-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-mdpg-cup-presencial-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045980+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-mdpg-division-preferente-tda-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-mdpg-division-preferente-tda-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045987+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-mdpg-modelo-fuga-glue-trigger",
+    "estado": "ok",
+    "state_original": "DEACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-mdpg-modelo-fuga-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045992+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-mdpg-mora-car-sinacofi-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-mdpg-mora-car-sinacofi-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.045998+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-mdpg-piloto-uso-tr-glue-trigger",
+    "estado": "ok",
+    "state_original": "DEACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-mdpg-piloto-uso-tr-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046005+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-mdpg-seguimiento-cupones-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-mdpg-seguimiento-cupones-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046012+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-mdpg-seguimiento-innominada-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-mdpg-seguimiento-innominada-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046019+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-mdpg-seguimiento-pec-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-mdpg-seguimiento-pec-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046027+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-mdpg-tableau-epu-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-mdpg-tableau-epu-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046034+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-mdpg-uso-tr-marca-glue-trigger",
+    "estado": "ok",
+    "state_original": "DEACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-mdpg-uso-tr-marca-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046040+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-mpdg-mov-dev-sin-pan-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-mpdg-mov-dev-sin-pan-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046046+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-onb-planes-clientes-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-onb-planes-clientes-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046051+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-piloto-r-gold-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-piloto-r-gold-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046058+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-actualizar-base_ofertas-pd-digital-periodo-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-actualizar-base_ofertas-pd-digital-periodo-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046064+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-actualizar-sav-motor-mes-actual-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-actualizar-sav-motor-mes-actual-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046070+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-avance-fin-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-avance-fin-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046076+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-banco-secundario-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-banco-secundario-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046082+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-base-planes-nps-glue-trigger",
+    "estado": "ok",
+    "state_original": "CREATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-base-planes-nps-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046089+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-cc-radiografia-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-cc-radiografia-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046097+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-cc-remunerada-nuevos-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-cc-remunerada-nuevos-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046104+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-cobranza-consumo-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-cobranza-consumo-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046110+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-compra-en-cuotas-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-compra-en-cuotas-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046116+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-contrato-epu-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-contrato-epu-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046122+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-contratos-unicos-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-contratos-unicos-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046128+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-data-transaccional-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-data-transaccional-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046134+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-dispo-av-compra-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-dispo-av-compra-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046140+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-disponibles-tr-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-disponibles-tr-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046146+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-evol-trx-agg-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-evol-trx-agg-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046153+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-evolutivo-trx-power-bi-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-evolutivo-trx-power-bi-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046160+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-evolutivo-venta-ref-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-evolutivo-venta-ref-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046166+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-funnel-av-glue-trigger",
+    "estado": "ok",
+    "state_original": "DEACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-funnel-av-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046172+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-funnel-sav-trigger",
+    "estado": "ok",
+    "state_original": "DEACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-funnel-sav-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046178+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-guarda-historico-pd-av-sav-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-guarda-historico-pd-av-sav-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046200+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-guarda-historico-pd-consumo-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-guarda-historico-pd-consumo-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046206+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-guarda-historico-segmento-av-sav-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-guarda-historico-segmento-av-sav-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046212+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-guarda-historico-segmento-consumo-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-guarda-historico-segmento-consumo-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046218+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-info-dap-glue-trigger",
+    "estado": "ok",
+    "state_original": "DEACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-info-dap-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046223+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-informe-gestion-canon-consumo-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-informe-gestion-canon-consumo-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046241+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-leads-piloto-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-leads-piloto-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046247+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-leads-sav-call-center-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-leads-sav-call-center-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046253+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-operaciones-dap-diario-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-operaciones-dap-diario-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046259+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-operaciones-dap-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-operaciones-dap-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046265+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-panel-cuenta-vista-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-panel-cuenta-vista-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046270+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-planes-operaciones-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-planes-operaciones-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046276+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-principalidad-uso-tctd-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-principalidad-uso-tctd-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046281+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-resumen-panel-dap-glue-trigger",
+    "estado": "ok",
+    "state_original": "DEACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-resumen-panel-dap-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046287+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-saldo-sav-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-saldo-sav-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046294+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-saldos-cc-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-saldos-cc-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046299+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-seguimiento-canon-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-seguimiento-canon-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046304+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-stock-cc-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-stock-cc-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046309+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-stock-dap-glue-trigger",
+    "estado": "ok",
+    "state_original": "CREATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-stock-dap-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046319+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-tablas-cuenta-vista-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-tablas-cuenta-vista-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046324+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-tablon-campanas-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-tablon-campanas-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046329+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-tablon-de-visitas-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-tablon-de-visitas-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046335+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-ppff-variables-motor-precio-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-ppff-variables-motor-precio-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046338+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-reporte-aperturas-por-negocios-glue-trigger",
+    "estado": "ok",
+    "state_original": "CREATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-reporte-aperturas-por-negocios-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046341+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-retl-crbdtx-mov-vta-crz-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-retl-crbdtx-mov-vta-crz-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046344+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-retl-loyalty-puntos-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-retl-loyalty-puntos-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046346+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-retl-retail-tables-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-retl-retail-tables-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046349+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-run-camp-reporte-consolidado-campanas-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-run-camp-reporte-consolidado-campanas-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046352+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-run-campanas-por-cliente-semanal-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-run-campanas-por-cliente-semanal-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046354+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-run-clts-cactivos-universo-adquisicion-10:05-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-run-clts-cactivos-universo-adquisicion-10:05-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046357+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-run-clts-cactivos-universo-adquisicion-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-run-clts-cactivos-universo-adquisicion-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046360+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-run-clts-onboarding-blando-duro-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-run-clts-onboarding-blando-duro-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046362+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-run-cptp-adquisicion-tc-cc-activacion-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-run-cptp-adquisicion-tc-cc-activacion-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046365+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-run-cptp-mov-cuenta-corriente-historia-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-run-cptp-mov-cuenta-corriente-historia-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046368+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-run-cptp-mov-cuenta-vista-historia-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-run-cptp-mov-cuenta-vista-historia-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046370+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-run-cptp-primera-compra-spos-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-run-cptp-primera-compra-spos-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046373+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-run-ctbl-consentimiento-vista-consentiemiento-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-run-ctbl-consentimiento-vista-consentiemiento-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046375+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-run-dgtl-reporte-campanas-gc-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-run-dgtl-reporte-campanas-gc-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046378+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-run-funnel-final-tc-presencial-glue-trigger",
+    "estado": "ok",
+    "state_original": "DEACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-run-funnel-final-tc-presencial-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046381+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-run-mdpg-cliente-uso-corte-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-run-mdpg-cliente-uso-corte-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046383+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-run-mdpg-reporte-apple-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-run-mdpg-reporte-apple-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046386+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-run-mdpg-vista-fuga-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-run-mdpg-vista-fuga-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046389+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-run-ppff-aceptacion-pop-up-cc-remunerada-captados-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-run-ppff-aceptacion-pop-up-cc-remunerada-captados-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046391+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-run-ppff-contact-canon-consumo-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-run-ppff-contact-canon-consumo-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046394+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-run-ppff-foto-tablon-campana-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-run-ppff-foto-tablon-campana-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046397+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-run-ppff-obtencion-clientes-nuevoship-glue-trigger",
+    "estado": "ok",
+    "state_original": "DEACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-run-ppff-obtencion-clientes-nuevoship-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046399+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-run-ppff-radiografia-planes-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-run-ppff-radiografia-planes-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046402+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-run-ppff-veintiles-sav-cons-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-run-ppff-veintiles-sav-cons-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046404+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-run-spos-foto-rubro-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-run-spos-foto-rubro-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046407+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-run-sql-query-glue-trigger",
+    "estado": "ok",
+    "state_original": "DEACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-run-sql-query-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046410+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-spos-alianzas-matinal-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-spos-alianzas-matinal-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046413+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-spos-analisis-petrobras-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-spos-analisis-petrobras-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046415+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-spos-antiguedad-uso-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-spos-antiguedad-uso-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046418+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-spos-base-popup-concrecion-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-spos-base-popup-concrecion-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046421+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-spos-cargos-pat-resp-trigger",
+    "estado": "ok",
+    "state_original": "CREATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-spos-cargos-pat-resp-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046423+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-spos-cliente-unico-3m-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-spos-cliente-unico-3m-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046426+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-spos-dau-mau-wau-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-spos-dau-mau-wau-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046428+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-spos-foto-resumen-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-spos-foto-resumen-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046431+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-spos-nacional-internacional-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-spos-nacional-internacional-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046434+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-spos-onboarding-3m-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-spos-onboarding-3m-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046436+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-spos-pats-detalle-trx-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-spos-pats-detalle-trx-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046439+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-spos-rubro-preferente-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-spos-rubro-preferente-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046442+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-spos-tablon-digiventures-glue-trigger",
+    "estado": "ok",
+    "state_original": "DEACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-spos-tablon-digiventures-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046444+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-spos-transacciones-pasivos-glue-trigger",
+    "estado": "ok",
+    "state_original": "CREATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-spos-transacciones-pasivos-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046447+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-spos-vta-comercios-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-spos-vta-comercios-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046450+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-spos-vta-rubros-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-spos-vta-rubros-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046455+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-tmp",
+    "estado": "ok",
+    "state_original": "CREATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-tmp.json",
+    "fecha": "2026-09-02T16:08:00.046460+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-tnda-clientes-uso-cortes-glue-trigger",
+    "estado": "ok",
+    "state_original": "DEACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-tnda-clientes-uso-cortes-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046463+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-tnda-data-mkp-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-tnda-data-mkp-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046466+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-tnda-forma-de-pago-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-tnda-forma-de-pago-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046470+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-tnda-forma-pago-en-tda-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-tnda-forma-pago-en-tda-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046475+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-tnda-forma-pago-mes-actual-glue-trigger",
+    "estado": "ok",
+    "state_original": "CREATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-tnda-forma-pago-mes-actual-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046479+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-tnda-reporte-termometro-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-tnda-reporte-termometro-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046484+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-tnda-sku-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-tnda-sku-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046489+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-tnda-sucursal-preferente-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-tnda-sucursal-preferente-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046494+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-total-clientes-variable-retira-onboarding-trigger",
+    "estado": "ok",
+    "state_original": "DEACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-total-clientes-variable-retira-onboarding-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046499+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-var-saldos-cc-cv-ult-mes-cerrado-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-var-saldos-cc-cv-ult-mes-cerrado-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046504+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp-wf-ctbl-flujo-datamaster-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp-wf-ctbl-flujo-datamaster-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046509+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-sp_clts_cupon_capta-glue-trigger",
+    "estado": "ok",
+    "state_original": "DEACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-sp_clts_cupon_capta-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046514+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-tablon-alta-planes-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-tablon-alta-planes-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046518+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-tablon-stock-planes-glue-trigger",
+    "estado": "ok",
+    "state_original": "ACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-tablon-stock-planes-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046536+00:00"
+  },
+  {
+    "trigger": "sdlf-bigdata-wildcard-midday-glue-trigger",
+    "estado": "ok",
+    "state_original": "DEACTIVATED",
+    "archivo": "respaldos\\sdlf-bigdata-wildcard-midday-glue-trigger.json",
+    "fecha": "2026-09-02T16:08:00.046542+00:00"
+  },
+  {
+    "trigger": "tg-sdlf-bigdata-panel-cuenta-corriente-glue-job",
+    "estado": "ok",
+    "state_original": "DEACTIVATED",
+    "archivo": "respaldos\\tg-sdlf-bigdata-panel-cuenta-corriente-glue-job.json",
+    "fecha": "2026-09-02T16:08:00.046547+00:00"
+  }
+]

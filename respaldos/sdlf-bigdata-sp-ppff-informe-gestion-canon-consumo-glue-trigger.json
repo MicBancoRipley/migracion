@@ -1,0 +1,18 @@
+{
+  "Name": "sdlf-bigdata-sp-ppff-informe-gestion-canon-consumo-glue-trigger",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(0 14 ? * * *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-segmentation-schedule-glue-job",
+      "Arguments": {
+        "--sql_file_key": "redshift-sql-scheduled/call_sp_ppff_informe_gestion_canon_consumo.sql",
+        "--vs_notification": "ppff",
+        "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+      }
+    }
+  ],
+  "Description": "",
+  "_respaldado_en": "2026-09-02T16:07:42.264576+00:00"
+}

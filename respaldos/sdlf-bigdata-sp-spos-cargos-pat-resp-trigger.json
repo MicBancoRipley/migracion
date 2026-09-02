@@ -1,0 +1,19 @@
+{
+  "Name": "sdlf-bigdata-sp-spos-cargos-pat-resp-trigger",
+  "Type": "SCHEDULED",
+  "State": "CREATED",
+  "Schedule": "cron(30 14 * * ? *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-segmentation-schedule-glue-job",
+      "Arguments": {
+        "--additional-python-modules": "awscli==1.23.5,boto3==1.22.5,sqlparse==0.4.3",
+        "--base_sql_bucket": "br-dm-prod-us-east-1-837538682169-artifactory",
+        "--sql_file_key": "redshift-sql-scheduled/cal_sp_spos_cargos_pat_resp.sql"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "",
+  "_respaldado_en": "2026-09-02T16:07:53.889746+00:00"
+}

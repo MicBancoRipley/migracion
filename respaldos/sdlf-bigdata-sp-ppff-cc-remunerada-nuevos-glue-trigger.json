@@ -1,0 +1,17 @@
+{
+  "Name": "sdlf-bigdata-sp-ppff-cc-remunerada-nuevos-glue-trigger",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(0 3,15 ? * * *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-segmentation-schedule-glue-job",
+      "Arguments": {
+        "--sql_file_key": "redshift-sql-scheduled/call_sp_ppff_cc_remunerada_nuevos.sql"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "trigger to execute call_sp_ppff_cc_remunerada_nuevos",
+  "_respaldado_en": "2026-09-02T16:07:37.976558+00:00"
+}
