@@ -93,6 +93,19 @@ def _sql_file_key_de_run(run):
     return args.get('--sql_file_key')
 
 
+def _lo_disparo_eventbridge(run):
+    """True si la corrida NO fue lanzada por un Glue trigger.
+
+    Cuando un GLUE TRIGGER dispara el job, la corrida trae TriggerName con el
+    nombre del trigger (lo confirma la consola: columna 'Trigger name').
+    Cuando EVENTBRIDGE SCHEDULER dispara (via StartJobRun directo), NO hay
+    trigger asociado -> TriggerName viene vacío/ausente. Esa es la firma de
+    que la MIGRACIÓN tomó el control del disparo.
+    """
+    tn = (run.get('TriggerName') or '').strip()
+    return tn == ''
+
+
 def comprobar_disparo(glue, job_name, activado_dt, sql_file_key=None):
     """
     Comprueba si ESTE schedule específico disparó el job DESPUÉS de activarse.
@@ -144,27 +157,46 @@ def comprobar_disparo(glue, job_name, activado_dt, sql_file_key=None):
                         'schedules y este no tiene --sql_file_key para distinguirlo.'),
         }
 
-    # Corridas de ESTE schedule = mismo --sql_file_key Y posteriores al switch.
-    mias = [r for r in runs
-            if _sql_file_key_de_run(r) == sql_file_key
-            and _aware(r.get('StartedOn')) and activado_dt
-            and _aware(r.get('StartedOn')) >= activado_dt]
+    # Corridas de ESTE schedule, disparadas por EVENTBRIDGE (no por trigger):
+    #   (1) mismo --sql_file_key  (2) posteriores al switch  (3) TriggerName vacío
+    mias_por_sql = [r for r in runs if _sql_file_key_de_run(r) == sql_file_key]
+    mias_eb = [r for r in mias_por_sql
+               if _lo_disparo_eventbridge(r)
+               and _aware(r.get('StartedOn')) and activado_dt
+               and _aware(r.get('StartedOn')) >= activado_dt]
 
-    if mias:
-        p = max(mias, key=lambda r: _aware(r.get('StartedOn')))
+    if mias_eb:
+        p = max(mias_eb, key=lambda r: _aware(r.get('StartedOn')))
         return {
             'estado': 'DISPARADO',
             'detalle': (f"{p.get('JobRunState')} @ {_fmt_utc(_aware(p.get('StartedOn')))} "
-                        f"(sql_file_key propio, tras activarse)"),
+                        f"(EventBridge, sin trigger — confirmado)"),
             'run_state': p.get('JobRunState'),
         }
 
-    # ¿Hubo corridas de ESTE sql_file_key alguna vez (aunque sea antes del switch)?
-    historicas = [r for r in runs if _sql_file_key_de_run(r) == sql_file_key]
-    if historicas:
-        ult = max(historicas, key=lambda r: _aware(r.get('StartedOn')))
+    # ¿Hay corridas de MI sql posteriores al switch pero que aún trae el TRIGGER
+    # viejo? -> el trigger no se ha apagado/eliminado: sigue disparando él.
+    mias_post = [r for r in mias_por_sql
+                 if _aware(r.get('StartedOn')) and activado_dt
+                 and _aware(r.get('StartedOn')) >= activado_dt]
+    aun_por_trigger = [r for r in mias_post if not _lo_disparo_eventbridge(r)]
+    if aun_por_trigger:
+        u = max(aun_por_trigger, key=lambda r: _aware(r.get('StartedOn')))
+        return {
+            'estado': 'AMBIGUO',
+            'detalle': (f"Corrió tras el switch pero la lanzó el TRIGGER viejo "
+                        f"'{(u.get('TriggerName') or '').strip()}' @ "
+                        f"{_fmt_utc(_aware(u.get('StartedOn')))}. EventBridge aún no toma el control "
+                        f"(¿el trigger viejo sigue activo?)."),
+        }
+
+    # No hay corrida propia posterior al switch todavía.
+    if mias_por_sql:
+        ult = max(mias_por_sql, key=lambda r: _aware(r.get('StartedOn')))
+        quien = (ult.get('TriggerName') or '').strip() or 'EventBridge'
         detalle = (f"Aún sin ejecución PROPIA tras activarse. Último run de este "
-                   f"sql_file_key: {ult.get('JobRunState')} @ {_fmt_utc(_aware(ult.get('StartedOn')))}")
+                   f"sql_file_key: {ult.get('JobRunState')} @ {_fmt_utc(_aware(ult.get('StartedOn')))} "
+                   f"(lo lanzó: {quien})")
     else:
         detalle = ("Sin ninguna corrida con este --sql_file_key en las últimas 200 "
                    "(puede que aún no toque su cron, o mirar más historial).")
