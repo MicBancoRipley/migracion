@@ -58,18 +58,37 @@ def _acortar_nombre(nombre_schedule):
     return n
 
 
+def _limpiar_chars(nombre):
+    """EventBridge solo acepta A-Za-z0-9 . - _ en el nombre del schedule.
+    Reemplaza caracteres inválidos por equivalentes seguros (regla del equipo):
+      ñ/Ñ -> n/N ,  ':' -> '-' ,  y cualquier otro no permitido -> '-'.
+    """
+    reemplazos = {'ñ': 'n', 'Ñ': 'N', 'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o',
+                  'ú': 'u', 'Á': 'A', 'É': 'E', 'Í': 'I', 'Ó': 'O', 'Ú': 'U',
+                  ':': '-'}
+    salida = []
+    for c in nombre:
+        if c in reemplazos:
+            salida.append(reemplazos[c])
+        elif c.isalnum() or c in '.-_':
+            salida.append(c)
+        else:
+            salida.append('-')  # cualquier otro caracter no permitido
+    return ''.join(salida)
+
+
 def nombre_schedule_desde_trigger(trigger_name):
     """Nombre del schedule a partir del trigger.
 
     Regla base: -trigger -> -schedule.
-    Si el nombre resultante supera MAX_LEN_SCHEDULE (64), se aplica la regla de
-    acortado acordada con el equipo (quitar 'sdlf-bigdata-' y '-glue'), que deja
-    todos los casos conocidos por debajo de 64.
+    1) Si supera MAX_LEN_SCHEDULE (64), se acorta (quitar 'sdlf-bigdata-' y '-glue').
+    2) Se limpian caracteres inválidos para EventBridge (ñ->n, ':'->'-', etc.).
+    Los nombres ya válidos y cortos quedan intactos.
     """
     base = _base_schedule(trigger_name)
-    if len(base) <= MAX_LEN_SCHEDULE:
-        return base
-    return _acortar_nombre(base)
+    if len(base) > MAX_LEN_SCHEDULE:
+        base = _acortar_nombre(base)
+    return _limpiar_chars(base)
 
 
 def _norm(texto):
