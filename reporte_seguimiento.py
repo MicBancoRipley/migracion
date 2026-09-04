@@ -122,7 +122,7 @@ def _estado_trigger_viejo(glue, trigger_name):
 
 
 def comprobar_disparo(glue, job_name, activado_dt, sql_file_key=None, trigger_name=None,
-                      job_compartido=True):
+                      job_compartido=True, estado_schedule='ENABLED'):
     """
     Comprueba si ESTE schedule específico disparó el job DESPUÉS de activarse.
 
@@ -186,10 +186,14 @@ def comprobar_disparo(glue, job_name, activado_dt, sql_file_key=None, trigger_na
         if por_trig:
             u = max(por_trig, key=lambda r: _aware(r.get('StartedOn')))
             est = _estado_trigger_viejo(glue, trigger_name or (u.get('TriggerName') or '').strip())
-            if est == 'ACTIVATED':
+            if est == 'ACTIVATED' and estado_schedule == 'ENABLED':
                 return {'estado': 'AMBIGUO',
-                        'detalle': f"⚠️ DOBLE DISPARO: trigger viejo ACTIVATED @ "
-                                   f"{_fmt_utc(_aware(u.get('StartedOn')))}. Apágalo."}
+                        'detalle': f"⚠️ DOBLE DISPARO: trigger viejo ACTIVATED + schedule ENABLED @ "
+                                   f"{_fmt_utc(_aware(u.get('StartedOn')))}. Apaga el trigger."}
+            if est == 'ACTIVATED' and estado_schedule != 'ENABLED':
+                return {'estado': 'PENDIENTE',
+                        'detalle': f"Aún NO migrado: schedule {estado_schedule}, solo dispara el "
+                                   f"trigger viejo @ {_fmt_utc(_aware(u.get('StartedOn')))}. Falta switch."}
             return {'estado': 'DISPARADO',
                     'detalle': f"OK. Último disparo por trigger viejo @ "
                                f"{_fmt_utc(_aware(u.get('StartedOn')))}; quedó {est}.",
@@ -234,13 +238,23 @@ def comprobar_disparo(glue, job_name, activado_dt, sql_file_key=None, trigger_na
         nombre_trig = (u.get('TriggerName') or '').strip()
         # ¿El trigger viejo sigue vivo? Eso decide si es alarma real o falsa.
         estado_trig = _estado_trigger_viejo(glue, trigger_name or nombre_trig)
-        if estado_trig == 'ACTIVATED':
-            # 🔴 DOBLE DISPARO real: trigger viejo activo + schedule nuevo activo.
+        if estado_trig == 'ACTIVATED' and estado_schedule == 'ENABLED':
+            # 🔴 DOBLE DISPARO real: trigger viejo ACTIVATED + schedule ENABLED.
+            # Los DOS pueden disparar el job -> ejecución duplicada.
             return {
                 'estado': 'AMBIGUO',
                 'detalle': (f"⚠️ DOBLE DISPARO: el trigger viejo '{nombre_trig}' sigue ACTIVATED "
-                            f"y lanzó el job @ {_fmt_utc(_aware(u.get('StartedOn')))}. "
-                            f"Apágalo: el schedule nuevo ya está activo."),
+                            f"y el schedule está ENABLED. Ambos disparan el job (último por "
+                            f"trigger @ {_fmt_utc(_aware(u.get('StartedOn')))}). Apaga el trigger."),
+            }
+        if estado_trig == 'ACTIVATED' and estado_schedule != 'ENABLED':
+            # Schedule DISABLED -> NO hay doble disparo. Solo dispara el trigger
+            # viejo, que es lo correcto: este aún NO se ha migrado (falta switch).
+            return {
+                'estado': 'PENDIENTE',
+                'detalle': (f"Aún NO migrado: el schedule está {estado_schedule} y solo dispara el "
+                            f"trigger viejo (ACTIVATED) @ {_fmt_utc(_aware(u.get('StartedOn')))}. "
+                            f"Falta el switch. Sin doble disparo."),
             }
         # Trigger ya DEACTIVATED/ELIMINADO -> la corrida vista fue el último
         # disparo del trigger justo antes de apagarlo. NO hay doble disparo.
@@ -324,7 +338,8 @@ def construir_datos(scheduler, glue):
         trigger_viejo = s.get('Name', '').replace('-schedule', '-trigger')
         job_compartido = conteo_job.get(job_name, 0) > 1
         disparo = comprobar_disparo(glue, job_name, activado_dt, sql_file_key,
-                                    trigger_viejo, job_compartido)
+                                    trigger_viejo, job_compartido,
+                                    estado_schedule=s.get('State', 'ENABLED'))
 
         # --- DIAGNÓSTICO por consola (todo en UTC real, para no adivinar) ---
         def _u(dt):
