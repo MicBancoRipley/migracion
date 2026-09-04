@@ -1,100 +1,83 @@
-# Casos en REVISAR — no migrados automáticamente
+# Casos en REVISAR — los 10 no migrados
 
-**Contexto:** de los 344 triggers del job `sdlf-bigdata-redshift-segmentation-schedule-glue-job`,
-**334 se migraron** a EventBridge Scheduler. Los que quedan en `revisar` NO se
-pudieron migrar de forma automática y limpia — requieren una decisión de negocio
-o un tratamiento especial. Se detallan abajo por categoría.
+**Estado final:** de 344 triggers del job `sdlf-bigdata-redshift-segmentation-schedule-glue-job`,
+**334 migrados** a EventBridge Scheduler, **10 en revisar** (detalle abajo).
 
-Ninguno es un fallo de la migración: son características propias del trigger
-(tipo, nombre o configuración) que EventBridge Scheduler no puede replicar tal cual.
+Ninguno es fallo de la migración: son características del trigger (tipo, nombre,
+configuración o política) que impiden migrarlo automáticamente y limpio.
 
 ---
 
-## A) Tipo CONDITIONAL (workflow) — NO migrables a Scheduler
+## A) Tipo CONDITIONAL (workflow) — NO migrables a Scheduler — 2
 
-EventBridge Scheduler solo dispara por horario (cron). Estos triggers se disparan
-cuando **otro job termina** (encadenamiento de workflow), no por reloj. Deben
-quedarse como Glue trigger, o rehacerse con Step Functions / EventBridge Rules.
+Se disparan cuando **otro job termina** (encadenamiento), no por reloj. Scheduler
+solo hace cron.
 
-| Trigger | Tipo |
+| Trigger | Nota |
 |---------|------|
-| `sdlf-bigdata-planes-step1-trigger` | CONDITIONAL |
-| `sdlf-bigdata-platun-step3-trigger` | CONDITIONAL |
+| `sdlf-bigdata-planes-step1-trigger` | CONDITIONAL (step de workflow, sin cron) |
+| `sdlf-bigdata-platun-step3-trigger` | CONDITIONAL (step de workflow, sin cron) |
 
-**Acción:** dejar como están (no migrar). Si se quiere en EventBridge, es otro proyecto (Step Functions).
+**Acción:** dejar como Glue trigger. Si se quiere en AWS-nativo: Step Functions / EventBridge Rules (otro proyecto).
 
----
+## B) Multi-acción (varios jobs en un trigger) — 1
 
-## B) Multi-acción (varios jobs en un trigger) — requiere estrategia
+| Trigger | Cron | Nota |
+|---------|------|------|
+| `sdlf-bigdata-sp-earq-drop-tables-workspace-glue-trigger` | `cron(00 5 * * ? *)` | Dispara 2 jobs; un schedule invoca 1 |
 
-Este trigger dispara **más de un job** en una sola definición. Un schedule de
-EventBridge invoca un `StartJobRun` a la vez, así que no se puede replicar 1:1.
+**Acción:** negocio define estrategia (2 schedules / unir jobs / Step Functions).
 
-| Trigger | Nº acciones |
-|---------|-------------|
-| `sdlf-bigdata-sp-earq-drop-tables-workspace-glue-trigger` | 2 |
+## C) Cron inválido en el origen — 1
 
-**Acción:** negocio decide — ¿crear 2 schedules?, ¿unir en un job?, ¿Step Functions?
+| Trigger | Cron | Nota |
+|---------|------|------|
+| `sdlf-bigdata-contratos-itf-tg-job` | `cron(0 10 2.3 * ? *)` | `2.3` no es día válido (¿`2,3`?). También choque SQL. |
 
----
+**Acción:** negocio confirma el cron correcto → migrable.
 
-## C) Cron inválido en el origen
+## D) Nombre con carácter inválido para EventBridge — 2
 
-El cron del trigger está mal escrito y EventBridge lo rechaza.
-
-| Trigger | Cron actual | Problema |
-|---------|-------------|----------|
-| `sdlf-bigdata-contratos-itf-tg-job` | `cron(0 10 2.3 * ? *)` | `2.3` no es un día válido (¿era `2,3` = días 2 y 3?) |
-
-**Acción:** negocio confirma el cron correcto → luego se migra. (También es choque de SQL, ver sección E.)
-
----
-
-## D) Nombre con carácter inválido para EventBridge
-
-EventBridge Scheduler solo acepta `A-Z a-z 0-9 . - _` en el nombre. Estos tienen
-caracteres no permitidos.
+EventBridge solo acepta `A-Z a-z 0-9 . - _`.
 
 | Trigger | Carácter | Sugerencia |
 |---------|----------|------------|
-| `sdlf-bigdata-sp-clts-bases-cumpleaños-puntos-glue-trigger` | `ñ` | `cumpleaños` → `cumpleanos` |
-| `sdlf-bigdata-sp-run-clts-cactivos-universo-adquisicion-10:05-glue-trigger` | `:` | `10:05` → `10-05` |
+| `sdlf-bigdata-sp-clts-bases-cumpleaños-puntos-glue-trigger` | `ñ` | `cumpleaños`→`cumpleanos` |
+| `sdlf-bigdata-sp-run-clts-cactivos-universo-adquisicion-10:05-glue-trigger` | `:` | `10:05`→`10-05` |
 
-**Acción:** negocio aprueba el nombre limpio del schedule → luego se migra.
+**Acción:** negocio aprueba nombre limpio del schedule → migrable.
 
----
+## E) Choque de SQL (revisar antes de tocar) — 1
 
-## E) Choques de `--sql_file_key` (varios triggers → mismo SQL)
+| Trigger | Cron | Nota |
+|---------|------|------|
+| `sdlf-bigdata-sp-tnda-forma-pago-en-tda-glue-trigger` | `cron(00 15 ? * FRI *)` | Apunta a `call_sp_ctbl_lnegro_car.sql` (nombre no calza). Posible sql_file_key mal copiado. |
 
-Errores de configuración PREEXISTENTES: varios triggers ejecutan el mismo SQL.
-Ver detalle completo en `CHOQUES_SQL_FILE_KEY.md`. Los que aún tienen 2+ triggers
-ACTIVATED generan doble/triple ejecución:
+**Acción:** negocio confirma si el SQL es el correcto (ver `CHOQUES_SQL_FILE_KEY.md`).
 
-- `call_sp_ctbl_lnegro_car.sql` → `sp-ctbl-lnegro-car` + `sp-tnda-forma-pago-en-tda` (nombre no calza, ¿sql mal copiado?)
-- `call_sp_ppff_actualizar_sav_motor_mes_actual.sql` → 3 triggers (2 migrados como grupo, revisar el 3º)
-- `call_sp_ppff_operaciones_dap.sql` → 2 triggers, 2 horarios
-- `call_sp_run_tablon_alta_planes.sql` → `tablon-alta-planes` + `planes-step1` (este último es CONDITIONAL)
+## F) Excluidos por política del equipo (matinal) — 3
 
-**Acción:** negocio decide cuál trigger es el válido de cada grupo.
+Excluidos desde el inicio por decisión del equipo. No requieren acción.
 
----
-
-## Nota sobre BI / matinal (excluidos por política, NO están en revisar por error)
-
-Los triggers de **BI** (`bigdata-bi-`) y **matinal** se excluyen por política del
-equipo desde el inicio — no entran en la migración. No requieren acción aquí.
+| Trigger |
+|---------|
+| `sdlf-bigdata-sp-matinal-step-0` |
+| `sdlf-bigdata-sp-matinal_parte-2-trigger` |
+| `sdlf-bigdata-sp-spos-alianzas-matinal-glue-trigger` |
 
 ---
 
 ## Resumen
 
-| Categoría | Acción de quién |
-|-----------|-----------------|
-| A) CONDITIONAL | dejar como Glue trigger (o proyecto aparte) |
-| B) Multi-acción | negocio define estrategia |
-| C) Cron inválido | negocio corrige cron → migrar |
-| D) Nombre inválido | negocio aprueba nombre → migrar |
-| E) Choques SQL | negocio define trigger válido de cada grupo |
+| Cat | Qué es | Cant | ¿Migrable tras arreglo de negocio? |
+|-----|--------|------|-----------------------------------|
+| A | CONDITIONAL (workflow) | 2 | No (nunca a Scheduler) |
+| B | Multi-acción | 1 | Requiere diseño |
+| C | Cron inválido | 1 | Sí, corrigiendo cron |
+| D | Nombre inválido | 2 | Sí, aprobando nombre |
+| E | Choque SQL | 1 | Sí, confirmando SQL |
+| F | Matinal (política) | 3 | No (excluidos por diseño) |
+| | **TOTAL** | **10** | |
 
-Una vez negocio resuelva C, D y E, esos triggers se pueden migrar con la misma
-maquinaria (crear-lote / verificar-lote / switch-lote), apuntando por `--filtro`.
+Los de C, D y E se migran con la misma maquinaria (`crear-lote --filtro <nombre>`)
+una vez negocio resuelva. A y F quedan fuera por diseño; B requiere decisión.
