@@ -307,6 +307,7 @@ def construir_datos(scheduler, glue):
     # para desambiguar. Un job usado por 1 solo schedule es exclusivo (monitoreo).
     from collections import Counter
     conteo_job = Counter()
+    conteo_sql = Counter()   # cuántos schedules usan cada --sql_file_key
     for s in schedules:
         try:
             _inp = json.loads(s.get('Target', {}).get('Input', '{}'))
@@ -315,6 +316,9 @@ def construir_datos(scheduler, glue):
         _job = _inp.get('JobName')
         if _job:
             conteo_job[_job] += 1
+        _sk = (_inp.get('Arguments') or {}).get('--sql_file_key')
+        if _sk:
+            conteo_sql[_sk] += 1
 
     datos = []
     for s in schedules:
@@ -337,9 +341,20 @@ def construir_datos(scheduler, glue):
         sql_file_key = (inp.get('Arguments') or {}).get('--sql_file_key')
         trigger_viejo = s.get('Name', '').replace('-schedule', '-trigger')
         job_compartido = conteo_job.get(job_name, 0) > 1
-        disparo = comprobar_disparo(glue, job_name, activado_dt, sql_file_key,
-                                    trigger_viejo, job_compartido,
-                                    estado_schedule=s.get('State', 'ENABLED'))
+        # Si el sql_file_key lo comparten VARIOS schedules, no podemos atribuir
+        # la corrida a uno solo -> el veredicto no es fiable (choque de config).
+        sql_duplicado = conteo_sql.get(sql_file_key, 0) > 1 if sql_file_key else False
+        if sql_duplicado:
+            disparo = {
+                'estado': 'AMBIGUO',
+                'detalle': (f"No fiable: el --sql_file_key '{sql_file_key}' lo usan "
+                            f"{conteo_sql[sql_file_key]} triggers distintos (choque de config). "
+                            f"Revisar con negocio antes de confiar en el disparo."),
+            }
+        else:
+            disparo = comprobar_disparo(glue, job_name, activado_dt, sql_file_key,
+                                        trigger_viejo, job_compartido,
+                                        estado_schedule=s.get('State', 'ENABLED'))
 
         # --- DIAGNÓSTICO por consola (todo en UTC real, para no adivinar) ---
         def _u(dt):
