@@ -35,11 +35,41 @@ MARCADOR_MATINAL = 'matinal'
 MAX_LEN_SCHEDULE = 64
 
 
-def nombre_schedule_desde_trigger(trigger_name):
-    """Mismo criterio que el resto del proyecto: -trigger -> -schedule."""
+# Regla de acortado (definida por el equipo) para nombres que exceden 64 chars:
+# quitar el prefijo 'sdlf-bigdata-' del inicio y el segmento '-glue' del final.
+PREFIJO_ACORTAR = 'sdlf-bigdata-'
+
+
+def _base_schedule(trigger_name):
+    """Nombre 'normal' del schedule: -trigger -> -schedule."""
     if trigger_name.endswith('-trigger'):
         return trigger_name[:-len('-trigger')] + '-schedule'
     return trigger_name + '-schedule'
+
+
+def _acortar_nombre(nombre_schedule):
+    """Aplica la regla del equipo: quita prefijo 'sdlf-bigdata-' y el '-glue'
+    que antecede a '-schedule'. Solo se usa cuando el nombre supera 64 chars."""
+    n = nombre_schedule
+    if n.startswith(PREFIJO_ACORTAR):
+        n = n[len(PREFIJO_ACORTAR):]
+    if n.endswith('-glue-schedule'):
+        n = n[:-len('-glue-schedule')] + '-schedule'
+    return n
+
+
+def nombre_schedule_desde_trigger(trigger_name):
+    """Nombre del schedule a partir del trigger.
+
+    Regla base: -trigger -> -schedule.
+    Si el nombre resultante supera MAX_LEN_SCHEDULE (64), se aplica la regla de
+    acortado acordada con el equipo (quitar 'sdlf-bigdata-' y '-glue'), que deja
+    todos los casos conocidos por debajo de 64.
+    """
+    base = _base_schedule(trigger_name)
+    if len(base) <= MAX_LEN_SCHEDULE:
+        return base
+    return _acortar_nombre(base)
 
 
 def _norm(texto):
@@ -62,11 +92,12 @@ def motivo_exclusion(nombre_trigger, nombre_job=''):
     if MARCADOR_MATINAL in t or MARCADOR_MATINAL in j:
         return 'excluido: proceso matinal'
 
-    # LONGITUD: el nombre del schedule no puede pasar de 64 chars (EventBridge).
-    # Si excede, create_schedule falla -> apartar para renombrar a mano.
+    # LONGITUD: nombre_schedule_desde_trigger ya aplica la regla de acortado
+    # del equipo (quita 'sdlf-bigdata-' y '-glue') cuando supera 64. Solo se
+    # excluye si NI SIQUIERA acortado cabe -> caso raro que requiere mano.
     nombre_sched = nombre_schedule_desde_trigger(nombre_trigger or '')
     if len(nombre_sched) > MAX_LEN_SCHEDULE:
-        return f'nombre schedule >{MAX_LEN_SCHEDULE} chars ({len(nombre_sched)}): renombrar a mano'
+        return f'nombre schedule >{MAX_LEN_SCHEDULE} chars aun acortado ({len(nombre_sched)}): renombrar a mano'
 
     return None
 

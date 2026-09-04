@@ -57,10 +57,14 @@ ESTADO_INICIAL = 'pendiente'
 
 
 def nombre_schedule_desde_trigger(trigger_name):
-    """Mismo criterio que migrar_seguro.py: -trigger -> -schedule."""
-    if trigger_name.endswith('-trigger'):
-        return trigger_name[:-len('-trigger')] + '-schedule'
-    return trigger_name + '-schedule'
+    """Delega en reglas_exclusion (aplica acortado del equipo si supera 64)."""
+    try:
+        import reglas_exclusion
+        return reglas_exclusion.nombre_schedule_desde_trigger(trigger_name)
+    except Exception:
+        if trigger_name.endswith('-trigger'):
+            return trigger_name[:-len('-trigger')] + '-schedule'
+        return trigger_name + '-schedule'
 
 
 def clasificar_trigger(trigger):

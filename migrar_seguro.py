@@ -55,9 +55,17 @@ RETRY_MAX_AGE_SECONDS = 3600
 
 
 def nombre_schedule_desde_trigger(trigger_name):
-    if trigger_name.endswith('-trigger'):
-        return trigger_name[:-len('-trigger')] + '-schedule'
-    return trigger_name + '-schedule'
+    """Delega en reglas_exclusion, que aplica la regla de acortado del equipo
+    (quitar 'sdlf-bigdata-' y '-glue') cuando el nombre supera 64 chars.
+    Así el nombre del schedule es idéntico en todos los scripts del proyecto."""
+    try:
+        import reglas_exclusion
+        return reglas_exclusion.nombre_schedule_desde_trigger(trigger_name)
+    except Exception:
+        # Fallback al criterio base si no está disponible el módulo.
+        if trigger_name.endswith('-trigger'):
+            return trigger_name[:-len('-trigger')] + '-schedule'
+        return trigger_name + '-schedule'
 
 
 # =============================================================================
