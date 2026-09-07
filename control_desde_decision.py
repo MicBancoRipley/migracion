@@ -1,7 +1,7 @@
 """
-Genera un control_*.csv PARTIENDO de la lista de decisiones de Bastian.
+Genera un control_*.csv PARTIENDO de un CSV de decisiones (columna Decision).
 
-Bastian marcó cada trigger pendiente con una columna 'Decision'. Este script
+El CSV de decisiones marca cada trigger con una columna 'Decision'. Este script
 toma SOLO los que dicen 'migrar' y arma un archivo de control con esos exactos,
 consultando su definición real en Glue (cron, job, estado). Así migramos
 exactamente los aprobados, sin tocar los 'borrar' ni los 'no tocar' aunque
@@ -62,7 +62,7 @@ def construir(glue, nombres):
             'cron': t.get('Schedule', ''),
             'job_name': job,
             'estado': 'pendiente',
-            'nota': 'aprobado por Bastian: migrar',
+            'nota': 'decision=migrar',
             'actualizado': ahora(),
         })
     return filas, saltados

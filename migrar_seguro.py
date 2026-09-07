@@ -21,10 +21,10 @@ FLUJO (cada paso es un comando separado que TÚ ejecutas y verificas):
     - Eliminar al final, tras monitorear varios días
 
 ⚠️ ANTES DE EMPEZAR:
-    - Pon el ARN real del rol en SCHEDULER_ROLE_ARN (pídeselo a tu jefe)
-    - Conéctate a la VPN y ten credenciales frescas
-    - Hazlo con tu jefe presente (es tu primera migración en prod)
-    - Revisa el cron del trigger: NO hagas el switch si está por ejecutarse pronto
+    - Define el ARN del rol del scheduler en la variable de entorno
+      SCHEDULER_ROLE_ARN (o edítalo en la sección CONFIGURACIÓN).
+    - Ten credenciales AWS válidas para la cuenta/región objetivo.
+    - Revisa el cron del trigger: no hagas el switch si está por ejecutarse pronto.
 
 USO:
     python migrar_seguro.py --trigger NOMBRE-DEL-TRIGGER --paso crear
@@ -34,21 +34,27 @@ USO:
     python migrar_seguro.py --trigger NOMBRE-DEL-TRIGGER --paso limpiar
 
     # Practicar el flujo completo con moto (sin AWS real):
-    python migrar_seguro.py --demo --trigger sdlf-bigdata-demo-glue-trigger --paso crear
+    python migrar_seguro.py --demo --trigger ejemplo-glue-trigger --paso crear
     ... (repite con verificar, switch, estado)
 
 =============================================================================
 """
 
+import os
 import json
 import argparse
 
 
 # =============================================================================
-# CONFIGURACIÓN  ← AJUSTA
+# CONFIGURACIÓN
 # =============================================================================
 
-SCHEDULER_ROLE_ARN = 'arn:aws:iam::837538682169:role/AWSSchedulerServiceRole-bigdata-scheduler'
+# ARN del rol que EventBridge Scheduler usa para invocar Glue. Se toma de la
+# variable de entorno SCHEDULER_ROLE_ARN; si no está, usa el placeholder de
+# abajo (edítalo o exporta la variable antes de correr en real).
+SCHEDULER_ROLE_ARN = os.environ.get(
+    'SCHEDULER_ROLE_ARN',
+    'arn:aws:iam::<ACCOUNT_ID>:role/<SCHEDULER_ROLE_NAME>')
 # Timezone de los schedules. America/Santiago (hora de Chile): el negocio piensa
 # los horarios en hora local y EventBridge ajusta verano/invierno automaticamente
 # (evita el desfase que tuvimos con UTC fijo). Los de SEGMENTATION se crearon en
@@ -130,8 +136,9 @@ def paso_crear(glue, scheduler, trigger_name):
         print(f"❌ El trigger es tipo {trigger['Type']}, no SCHEDULED. Aborto.")
         return
 
-    if 'CAMBIAR' in SCHEDULER_ROLE_ARN:
-        print("❌ SCHEDULER_ROLE_ARN es el de ejemplo. Pon el ARN real (pídeselo a tu jefe).")
+    if '<ACCOUNT_ID>' in SCHEDULER_ROLE_ARN or '<SCHEDULER_ROLE_NAME>' in SCHEDULER_ROLE_ARN:
+        print("❌ SCHEDULER_ROLE_ARN es el placeholder. Define la variable de entorno "
+              "SCHEDULER_ROLE_ARN o edítala en la sección CONFIGURACIÓN.")
         return
 
     # Siempre se crea DESACTIVADO en este flujo seguro
@@ -182,7 +189,7 @@ def paso_verificar(glue, scheduler, trigger_name):
     ok = (trigger.get('Schedule') == sched['ScheduleExpression']) and (t_job == s_job)
     if ok:
         print(f"\n  ✅ Coinciden cron y job. El schedule está listo (y DESACTIVADO).")
-        print(f"\n  👉 Cuando estés listo (¡con tu jefe!): ")
+        print(f"\n  👉 Cuando estés listo para el switch:")
         print(f"     python migrar_seguro.py --trigger {trigger_name} --paso switch")
     else:
         print(f"\n  ❌ NO coinciden. Revisa antes de continuar. Puedes borrar el schedule")

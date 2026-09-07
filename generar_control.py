@@ -18,7 +18,7 @@ Cada fila = un trigger. La columna 'estado' dice en qué punto está:
     error       -> algo falló (ver columna 'nota')
 
 ¿Por qué un CSV?
-    - Tu jefe lo abre en Excel y ve el avance de un vistazo.
+    - Se abre en Excel para ver el avance de un vistazo.
     - Es la memoria del proceso: si el script se cae, retoma leyendo este archivo.
     - Es idempotente: solo se procesan las filas cuyo estado lo permite.
 
@@ -260,7 +260,7 @@ def generar(glue, fusionar_estados=False, job_filtro=None, salida=None):
     escribir_control(filas, ruta_salida)
     resumen(filas)
     print(f"\n  ✅ Escrito: {ruta_salida}  ({len(filas)} filas)")
-    print(f"     Ábrelo en Excel para revisarlo con tu jefe.")
+    print(f"     Ábrelo en Excel para revisar el avance.")
     print(f"\n  👉 Siguiente: crear los schedules en lote (todos DESACTIVADOS):")
     print(f"     python migrar_lote.py --paso crear-lote --limit 5 --dry-run")
 

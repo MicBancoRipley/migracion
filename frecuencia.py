@@ -3,7 +3,7 @@
 CLASIFICACIÓN DE FRECUENCIA (para ordenar las tandas de migración)
 =============================================================================
 
-El plan del jefe: migrar primero los de MAYOR frecuencia, luego los DIARIOS,
+Orden sugerido: migrar primero los de MAYOR frecuencia, luego los DIARIOS,
 y al final los APAGADOS. Este módulo deriva la "categoría de frecuencia" del
 cron de cada trigger para poder ordenarlos.
 

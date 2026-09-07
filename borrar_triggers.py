@@ -1,9 +1,9 @@
 """
 =============================================================================
-BORRAR TRIGGERS (los marcados 'borrar' por Bastian) — CON RESPALDO OBLIGATORIO
+BORRAR TRIGGERS (los marcados 'borrar' en el CSV de decisiones) — CON RESPALDO OBLIGATORIO
 =============================================================================
 
-Elimina Glue triggers que el negocio marcó como obsoletos. ANTES de borrar cada
+Elimina Glue triggers marcados como obsoletos en el CSV de decisiones. ANTES de borrar cada
 uno, guarda su definición completa en respaldos_borrar/<nombre>.json (red de
 seguridad: si hubo un error, se puede recrear con restaurar_trigger.py).
 
@@ -64,7 +64,7 @@ def main():
     args = ap.parse_args()
 
     nombres = nombres_a_borrar(args.entrada)
-    print(f"Marcados 'borrar' por Bastian: {len(nombres)}")
+    print(f"Marcados 'borrar' en el CSV: {len(nombres)}")
 
     import boto3
     from botocore.exceptions import ClientError
@@ -100,7 +100,7 @@ def main():
           f"{'borrarían' if args.dry_run else 'borrados'} {borrados}, "
           f"activos saltados {saltados_activos}, errores {errores}")
     if saltados_activos and not args.incluir_activos:
-        print("  (los ACTIVATED no se tocaron; corre con --incluir-activos cuando Bastian confirme)")
+        print("  (los ACTIVATED no se tocaron; corre con --incluir-activos cuando se confirme)")
 
 
 if __name__ == '__main__':

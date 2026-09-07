@@ -70,7 +70,6 @@ sin ejecución (recuperable) antes que una **doble ejecución** (que corromperí
 | `migrar_seguro.py` | Lógica base del mapeo trigger→schedule (reusada por el lote) |
 | `reglas_exclusion.py` | Reglas de exclusión y de nombres (acortado, caracteres inválidos) |
 | `respaldar_triggers.py` | Guarda la definición completa de cada trigger antes de tocarlo |
-| `restaurar_trigger.py` | Recrea un trigger desde su respaldo (rollback) |
 | `retimezone_lote.py` | Cambia masivamente el timezone de los schedules |
 | `borrar_triggers.py` | Elimina triggers obsoletos, respaldando antes |
 | `reporte_seguimiento.py` | Reporte HTML: ¿qué migró y si ya disparó por EventBridge? |
@@ -175,8 +174,8 @@ python migrar_lote.py --paso switch-lote --control control_<job>.csv --region us
 - **Verificar disparo real:** `reporte_seguimiento.py` genera un HTML que dice, por
   cada schedule migrado, si ya disparó por EventBridge (estado DISPARADO / PENDIENTE /
   AMBIGUO).
-- **Rollback:** si un schedule falla, `restaurar_trigger.py` recrea el trigger viejo
-  desde su respaldo, y se desactiva el schedule. Se vuelve al estado original.
+- **Rollback:** si un schedule falla, se recrea el trigger viejo desde su respaldo
+  (`respaldos/<nombre>.json`) y se desactiva el schedule. Se vuelve al estado original.
 
 ---
 

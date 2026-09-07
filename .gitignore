@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Datos de ejecución (contienen nombres/config de procesos reales)
+control_*.csv
+triggers_faltantes*.csv
+nombres_mayores_64.csv
+
+# Respaldos de definiciones de triggers (config de producción)
+respaldos/
+respaldos_borrar/
+
+# Outputs generados
+reporte_seguimiento.html
+*.tmp
+
+# Credenciales / entorno
+.env
