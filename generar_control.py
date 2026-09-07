@@ -233,7 +233,8 @@ def resumen(filas):
     print(f"    a revisar manualmente: {conteo.get('revisar', 0)}")
 
 
-def generar(glue, fusionar_estados=False, job_filtro=None):
+def generar(glue, fusionar_estados=False, job_filtro=None, salida=None):
+    ruta_salida = salida or ARCHIVO_CONTROL
     print("Leyendo triggers y construyendo el archivo de control...\n")
     if job_filtro:
         print(f"  Filtro: SOLO triggers que apuntan al job '{job_filtro}'\n")
@@ -247,7 +248,7 @@ def generar(glue, fusionar_estados=False, job_filtro=None):
         return
 
     if fusionar_estados:
-        existentes = leer_control_existente(ARCHIVO_CONTROL)
+        existentes = leer_control_existente(ruta_salida)
         if existentes:
             filas = fusionar(filas, existentes)
 
@@ -256,9 +257,9 @@ def generar(glue, fusionar_estados=False, job_filtro=None):
                     'error': 4, 'revisar': 5}
     filas.sort(key=lambda f: (orden_estado.get(f['estado'], 9), f['trigger_name']))
 
-    escribir_control(filas, ARCHIVO_CONTROL)
+    escribir_control(filas, ruta_salida)
     resumen(filas)
-    print(f"\n  ✅ Escrito: {ARCHIVO_CONTROL}  ({len(filas)} filas)")
+    print(f"\n  ✅ Escrito: {ruta_salida}  ({len(filas)} filas)")
     print(f"     Ábrelo en Excel para revisarlo con tu jefe.")
     print(f"\n  👉 Siguiente: crear los schedules en lote (todos DESACTIVADOS):")
     print(f"     python migrar_lote.py --paso crear-lote --limit 5 --dry-run")
@@ -299,7 +300,7 @@ def main():
                                 Schedule='cron(0 6 * * ? *)',
                                 Actions=[{'JobName': 'sdlf-bigdata-job-1'}])
 
-            generar(glue, fusionar_estados=args.fusionar, job_filtro=args.job)
+            generar(glue, fusionar_estados=args.fusionar, job_filtro=args.job, salida=args.salida)
 
         _demo()
         return
@@ -308,7 +309,7 @@ def main():
     from botocore.exceptions import NoCredentialsError, ClientError
     try:
         glue = boto3.client('glue', region_name=args.region)
-        generar(glue, fusionar_estados=args.fusionar, job_filtro=args.job)
+        generar(glue, fusionar_estados=args.fusionar, job_filtro=args.job, salida=args.salida)
     except NoCredentialsError:
         print("❌ No hay credenciales AWS. Configúralas o usa --demo.")
     except ClientError as e:
@@ -323,6 +324,9 @@ def parse_args():
                    help='Conservar el avance ya registrado al regenerar (no pisar estados)')
     p.add_argument('--job',
                    help='Solo incluir triggers cuyo Actions[0].JobName sea EXACTAMENTE este job')
+    p.add_argument('--salida',
+                   help='Ruta del CSV de salida (por defecto control_migracion.csv). '
+                        'Usar uno por job, ej: control_redshift_to_lake.csv')
     return p.parse_args()
 
 

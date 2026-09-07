@@ -55,6 +55,10 @@ def _acortar_nombre(nombre_schedule):
         n = n[len(PREFIJO_ACORTAR):]
     if n.endswith('-glue-schedule'):
         n = n[:-len('-glue-schedule')] + '-schedule'
+    # Si AUN excede 64, quitar sufijos redundantes conocidos ('-new') que no
+    # aportan al identificador. Regla acordada con el equipo (caso rent-12m).
+    if len(n) > MAX_LEN_SCHEDULE and n.endswith('-new-schedule'):
+        n = n[:-len('-new-schedule')] + '-schedule'
     return n
 
 

@@ -72,7 +72,9 @@ def ahora():
 # LECTURA / ESCRITURA DEL ARCHIVO DE CONTROL
 # =============================================================================
 
-def cargar_control(ruta=ARCHIVO_CONTROL):
+def cargar_control(ruta=None):
+    if ruta is None:
+        ruta = ARCHIVO_CONTROL
     if not os.path.exists(ruta):
         raise FileNotFoundError(
             f"No existe {ruta}. Córrelo primero: python generar_control.py --region ...")
@@ -81,7 +83,9 @@ def cargar_control(ruta=ARCHIVO_CONTROL):
     return filas
 
 
-def guardar_control(filas, ruta=ARCHIVO_CONTROL):
+def guardar_control(filas, ruta=None):
+    if ruta is None:
+        ruta = ARCHIVO_CONTROL
     """Escritura atómica: escribe a un temporal y luego reemplaza.
     Así, si el proceso se corta a mitad de escritura, el CSV original no se corrompe."""
     tmp = ruta + '.tmp'
@@ -406,6 +410,12 @@ PASOS = {
 def main():
     args = parse_args()
 
+    # Permitir un CSV de control por job (--control). Setea la global que usan
+    # cargar_control / guardar_control por defecto.
+    if getattr(args, 'control', None):
+        global ARCHIVO_CONTROL
+        ARCHIVO_CONTROL = args.control
+
     if args.paso == 'resumen':
         filas = cargar_control()
         mostrar_resumen(filas)
@@ -508,6 +518,9 @@ def parse_args():
                    help='En crear-lote: solo procesar triggers que ya están DEACTIVATED (lo más seguro)')
     p.add_argument('--dry-run', action='store_true', help='Mostrar qué haría, sin llamar a AWS')
     p.add_argument('--region', default='us-east-1')
+    p.add_argument('--control',
+                   help='Ruta del CSV de control (por defecto control_migracion.csv). '
+                        'Usar el del job, ej: control_redshift_to_lake.csv')
     p.add_argument('--demo', action='store_true', help='Practicar el ciclo completo con moto')
     return p.parse_args()
 
