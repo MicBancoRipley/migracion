@@ -49,7 +49,11 @@ import argparse
 # =============================================================================
 
 SCHEDULER_ROLE_ARN = 'arn:aws:iam::837538682169:role/AWSSchedulerServiceRole-bigdata-scheduler'
-TIMEZONE = 'UTC'
+# Timezone de los schedules. America/Santiago (hora de Chile): el negocio piensa
+# los horarios en hora local y EventBridge ajusta verano/invierno automaticamente
+# (evita el desfase que tuvimos con UTC fijo). Los de SEGMENTATION se crearon en
+# UTC y se pasaron a Santiago con retimezone_lote.py; los proximos ya salen en Chile.
+TIMEZONE = 'America/Santiago'
 RETRY_ATTEMPTS = 2
 RETRY_MAX_AGE_SECONDS = 3600
 
