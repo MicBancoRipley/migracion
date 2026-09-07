@@ -34,22 +34,50 @@ TZ_DESTINO = 'America/Santiago'
 PAUSA = 0.2
 
 
+GRUPO = 'default'   # solo nuestro grupo; excluye datamanagement_stored_procedures, etc.
+ARCHIVO_CONTROL = 'control_migracion.csv'
+
+
+def nombres_migrados_del_control():
+    """Fuente de verdad: los schedule_name que NOSOTROS migramos (estado 'migrado').
+    Asi no tocamos schedules nativos de otros equipos (sp_... en otros grupos)."""
+    import csv
+    import os
+    if not os.path.exists(ARCHIVO_CONTROL):
+        return None
+    nombres = set()
+    with open(ARCHIVO_CONTROL, encoding='utf-8-sig', newline='') as f:
+        for r in csv.DictReader(f, delimiter=';'):
+            if r.get('estado') == 'migrado' and r.get('schedule_name'):
+                nombres.add(r['schedule_name'].strip())
+    return nombres
+
+
 def listar_schedules(scheduler):
-    """Todos los schedules del proyecto (paginado)."""
+    """Schedules del proyecto en el grupo 'default'. Si existe el control CSV,
+    se INTERSECTA con los que nosotros migramos (para no tocar ajenos)."""
+    del_control = nombres_migrados_del_control()
     nombres = []
     token = None
     while True:
-        kwargs = {'MaxResults': 100}
+        kwargs = {'MaxResults': 100, 'GroupName': GRUPO}
         if token:
             kwargs['NextToken'] = token
         resp = scheduler.list_schedules(**kwargs)
         for s in resp.get('Schedules', []):
             n = s['Name']
-            if n.startswith(PREFIJO) or n.startswith('sp_'):
-                nombres.append(n)
+            # Debe ser del proyecto Y (si hay control) haber sido migrado por nosotros
+            es_proyecto = n.startswith(PREFIJO) or n.startswith('sp-') or n.startswith('sp_')
+            if not es_proyecto:
+                continue
+            if del_control is not None and n not in del_control:
+                continue
+            nombres.append(n)
         token = resp.get('NextToken')
         if not token:
             break
+    if del_control is not None:
+        print(f"(fuente: control CSV, {len(del_control)} migrados; se cruzaron con grupo '{GRUPO}')")
     return nombres
 
 
@@ -69,7 +97,7 @@ def procesar(scheduler, dry_run, limit):
             print(f"\n(limit {limit} alcanzado)")
             break
         try:
-            s = scheduler.get_schedule(Name=nombre)
+            s = scheduler.get_schedule(Name=nombre, GroupName=GRUPO)
         except ClientError as e:
             print(f"  ⚠️  no se pudo leer {nombre}: {e.response['Error']['Code']}")
             errores += 1
@@ -94,6 +122,7 @@ def procesar(scheduler, dry_run, limit):
         try:
             scheduler.update_schedule(
                 Name=nombre,
+                GroupName=GRUPO,
                 ScheduleExpression=cron,
                 ScheduleExpressionTimezone=TZ_DESTINO,   # <-- unico cambio
                 FlexibleTimeWindow=s['FlexibleTimeWindow'],
