@@ -87,9 +87,44 @@ def listar_schedules_migrados(scheduler):
     return migrados
 
 
-def comprobar_disparo(glue, job_name, activado_dt):
+def _sql_file_key_de_run(run):
+    """Extrae el --sql_file_key de los Arguments de un job run (o None)."""
+    args = run.get('Arguments') or {}
+    return args.get('--sql_file_key')
+
+
+def _lo_disparo_eventbridge(run):
+    """True si la corrida NO fue lanzada por un Glue trigger.
+
+    Cuando un GLUE TRIGGER dispara el job, la corrida trae TriggerName con el
+    nombre del trigger (lo confirma la consola: columna 'Trigger name').
+    Cuando EVENTBRIDGE SCHEDULER dispara (via StartJobRun directo), NO hay
+    trigger asociado -> TriggerName viene vacío/ausente. Esa es la firma de
+    que la MIGRACIÓN tomó el control del disparo.
     """
-    Comprueba si el job se ejecutó DESPUÉS de que el schedule quedó ACTIVO.
+    tn = (run.get('TriggerName') or '').strip()
+    return tn == ''
+
+
+def _estado_trigger_viejo(glue, trigger_name):
+    """Devuelve el State actual del Glue trigger viejo, o None si no existe.
+
+    Sirve para distinguir un AMBIGUO real (trigger sigue ACTIVATED = doble
+    disparo) de una falsa alarma (trigger ya DEACTIVATED/eliminado = la corrida
+    que vimos fue el 'último suspiro' antes de apagarlo)."""
+    from botocore.exceptions import ClientError
+    if not trigger_name:
+        return None
+    try:
+        return glue.get_trigger(Name=trigger_name)['Trigger'].get('State')
+    except ClientError:
+        return 'ELIMINADO'  # ya no existe: alguien lo borró tras migrar
+
+
+def comprobar_disparo(glue, job_name, activado_dt, sql_file_key=None, trigger_name=None,
+                      job_compartido=True, estado_schedule='ENABLED'):
+    """
+    Comprueba si ESTE schedule específico disparó el job DESPUÉS de activarse.
 
     IMPORTANTE (lección aprendida en la migración real):
       El momento de referencia NO es cuándo se CREÓ el schedule (CreationDate),
@@ -97,27 +132,28 @@ def comprobar_disparo(glue, job_name, activado_dt):
       todavía NO puede disparar nada. El momento correcto es cuándo pasó a
       ENABLED (el 'switch'), que AWS registra en LastModificationDate.
 
-      Además, cuando el Glue trigger viejo y el schedule nuevo comparten el
-      MISMO cron, un run a la hora esperada es AMBIGUO: pudo dispararlo
-      cualquiera de los dos. Por eso, si el run cae MUY pegado al cron y cerca
-      del switch, lo marcamos como probable pero avisamos la ambigüedad.
+    PROBLEMA CRÍTICO (falso positivo): CIENTOS de schedules apuntan al MISMO
+      job (sdlf-bigdata-redshift-segmentation-schedule-glue-job). get_job_runs
+      devuelve TODAS las corridas del job, sin importar quién las lanzó. Si solo
+      filtráramos por fecha, CADA schedule saldría 'DISPARADO' porque otros
+      cientos disparan el job todo el tiempo -> falso positivo.
 
-    Devuelve dict con estado: DISPARADO / PENDIENTE / SIN_JOB / ERROR.
+    SOLUCIÓN: cada schedule pasa un --sql_file_key ÚNICO al job compartido.
+      Para saber si ESTE schedule disparó, buscamos una corrida que sea
+      (1) posterior a su activación Y (2) tenga SU MISMO --sql_file_key.
+
+    Devuelve dict con estado: DISPARADO / PENDIENTE / SIN_JOB / ERROR / AMBIGUO.
     """
     from botocore.exceptions import ClientError
     if not job_name:
         return {'estado': 'SIN_JOB', 'detalle': 'No hay job asociado'}
     try:
-        runs = glue.get_job_runs(JobName=job_name, MaxResults=20)['JobRuns']
+        runs = glue.get_job_runs(JobName=job_name, MaxResults=200)['JobRuns']
     except ClientError as e:
         return {'estado': 'ERROR', 'detalle': f'{type(e).__name__}'}
 
     if not runs:
         return {'estado': 'PENDIENTE', 'detalle': 'Sin ejecuciones registradas todavía'}
-
-    # get_job_runs viene ordenado desc (más reciente primero)
-    ult = runs[0]
-    ult_started = ult.get('StartedOn')
 
     # Normalizar tz: si por lo que sea llega naive, lo tratamos como UTC para
     # poder comparar sin lanzar TypeError.
@@ -126,25 +162,120 @@ def comprobar_disparo(glue, job_name, activado_dt):
             return dt.replace(tzinfo=timezone.utc)
         return dt
 
-    ult_started = _aware(ult_started)
     activado_dt = _aware(activado_dt)
 
-    # Buscar ejecuciones posteriores al momento en que el schedule quedó ACTIVO.
-    posteriores = [r for r in runs
-                   if _aware(r.get('StartedOn')) and activado_dt
-                   and _aware(r.get('StartedOn')) >= activado_dt]
+    # CASO A: el job NO es compartido (este schedule es su único dueño, p.ej.
+    # los de monitoreo: cost-monitor, iam-changes, etc.). No necesita
+    # --sql_file_key para desambiguar: basta ver si SU job corrió tras el switch.
+    if not job_compartido:
+        eb = [r for r in runs
+              if _lo_disparo_eventbridge(r)
+              and _aware(r.get('StartedOn')) and activado_dt
+              and _aware(r.get('StartedOn')) >= activado_dt]
+        if eb:
+            p = max(eb, key=lambda r: _aware(r.get('StartedOn')))
+            return {'estado': 'DISPARADO',
+                    'detalle': f"{p.get('JobRunState')} @ {_fmt_utc(_aware(p.get('StartedOn')))} "
+                               f"(job exclusivo, EventBridge)",
+                    'run_state': p.get('JobRunState')}
+        # ¿corrió por el trigger viejo tras el switch? -> chequear si sigue activo
+        por_trig = [r for r in runs
+                    if not _lo_disparo_eventbridge(r)
+                    and _aware(r.get('StartedOn')) and activado_dt
+                    and _aware(r.get('StartedOn')) >= activado_dt]
+        if por_trig:
+            u = max(por_trig, key=lambda r: _aware(r.get('StartedOn')))
+            est = _estado_trigger_viejo(glue, trigger_name or (u.get('TriggerName') or '').strip())
+            if est == 'ACTIVATED' and estado_schedule == 'ENABLED':
+                return {'estado': 'AMBIGUO',
+                        'detalle': f"⚠️ DOBLE DISPARO: trigger viejo ACTIVATED + schedule ENABLED @ "
+                                   f"{_fmt_utc(_aware(u.get('StartedOn')))}. Apaga el trigger."}
+            if est == 'ACTIVATED' and estado_schedule != 'ENABLED':
+                return {'estado': 'PENDIENTE',
+                        'detalle': f"Aún NO migrado: schedule {estado_schedule}, solo dispara el "
+                                   f"trigger viejo @ {_fmt_utc(_aware(u.get('StartedOn')))}. Falta switch."}
+            return {'estado': 'DISPARADO',
+                    'detalle': f"OK. Último disparo por trigger viejo @ "
+                               f"{_fmt_utc(_aware(u.get('StartedOn')))}; quedó {est}.",
+                    'run_state': u.get('JobRunState')}
+        return {'estado': 'PENDIENTE',
+                'detalle': 'Job exclusivo sin corridas tras el switch todavía.'}
 
-    if posteriores:
-        p = posteriores[0]
+    # CASO B: el job ES compartido. Sin --sql_file_key NO podemos discriminar
+    # quién disparó -> lo decimos claramente (no mentimos).
+    if not sql_file_key:
+        return {
+            'estado': 'AMBIGUO',
+            'detalle': ('No se puede confirmar: el job es compartido por cientos de '
+                        'schedules y este no tiene --sql_file_key para distinguirlo.'),
+        }
+
+    # Corridas de ESTE schedule, disparadas por EVENTBRIDGE (no por trigger):
+    #   (1) mismo --sql_file_key  (2) posteriores al switch  (3) TriggerName vacío
+    mias_por_sql = [r for r in runs if _sql_file_key_de_run(r) == sql_file_key]
+    mias_eb = [r for r in mias_por_sql
+               if _lo_disparo_eventbridge(r)
+               and _aware(r.get('StartedOn')) and activado_dt
+               and _aware(r.get('StartedOn')) >= activado_dt]
+
+    if mias_eb:
+        p = max(mias_eb, key=lambda r: _aware(r.get('StartedOn')))
         return {
             'estado': 'DISPARADO',
-            'detalle': f"{p.get('JobRunState')} @ {p.get('StartedOn')} (tras activarse el schedule)",
+            'detalle': (f"{p.get('JobRunState')} @ {_fmt_utc(_aware(p.get('StartedOn')))} "
+                        f"(EventBridge, sin trigger — confirmado)"),
             'run_state': p.get('JobRunState'),
         }
 
-    # No hay runs posteriores al switch todavía. Mostramos el último real,
-    # dejando claro que fue ANTES de activarse (probablemente el trigger viejo).
-    detalle = f"Aún sin ejecución tras activarse. Último run: {ult.get('JobRunState')} @ {ult_started}"
+    # ¿Hay corridas de MI sql posteriores al switch pero que aún trae el TRIGGER
+    # viejo? -> el trigger no se ha apagado/eliminado: sigue disparando él.
+    mias_post = [r for r in mias_por_sql
+                 if _aware(r.get('StartedOn')) and activado_dt
+                 and _aware(r.get('StartedOn')) >= activado_dt]
+    aun_por_trigger = [r for r in mias_post if not _lo_disparo_eventbridge(r)]
+    if aun_por_trigger:
+        u = max(aun_por_trigger, key=lambda r: _aware(r.get('StartedOn')))
+        nombre_trig = (u.get('TriggerName') or '').strip()
+        # ¿El trigger viejo sigue vivo? Eso decide si es alarma real o falsa.
+        estado_trig = _estado_trigger_viejo(glue, trigger_name or nombre_trig)
+        if estado_trig == 'ACTIVATED' and estado_schedule == 'ENABLED':
+            # 🔴 DOBLE DISPARO real: trigger viejo ACTIVATED + schedule ENABLED.
+            # Los DOS pueden disparar el job -> ejecución duplicada.
+            return {
+                'estado': 'AMBIGUO',
+                'detalle': (f"⚠️ DOBLE DISPARO: el trigger viejo '{nombre_trig}' sigue ACTIVATED "
+                            f"y el schedule está ENABLED. Ambos disparan el job (último por "
+                            f"trigger @ {_fmt_utc(_aware(u.get('StartedOn')))}). Apaga el trigger."),
+            }
+        if estado_trig == 'ACTIVATED' and estado_schedule != 'ENABLED':
+            # Schedule DISABLED -> NO hay doble disparo. Solo dispara el trigger
+            # viejo, que es lo correcto: este aún NO se ha migrado (falta switch).
+            return {
+                'estado': 'PENDIENTE',
+                'detalle': (f"Aún NO migrado: el schedule está {estado_schedule} y solo dispara el "
+                            f"trigger viejo (ACTIVATED) @ {_fmt_utc(_aware(u.get('StartedOn')))}. "
+                            f"Falta el switch. Sin doble disparo."),
+            }
+        # Trigger ya DEACTIVATED/ELIMINADO -> la corrida vista fue el último
+        # disparo del trigger justo antes de apagarlo. NO hay doble disparo.
+        return {
+            'estado': 'DISPARADO',
+            'detalle': (f"OK. Última corrida por el trigger viejo @ "
+                        f"{_fmt_utc(_aware(u.get('StartedOn')))} fue su último disparo; "
+                        f"el trigger quedó {estado_trig}. EventBridge ya tiene el control."),
+            'run_state': u.get('JobRunState'),
+        }
+
+    # No hay corrida propia posterior al switch todavía.
+    if mias_por_sql:
+        ult = max(mias_por_sql, key=lambda r: _aware(r.get('StartedOn')))
+        quien = (ult.get('TriggerName') or '').strip() or 'EventBridge'
+        detalle = (f"Aún sin ejecución PROPIA tras activarse. Último run de este "
+                   f"sql_file_key: {ult.get('JobRunState')} @ {_fmt_utc(_aware(ult.get('StartedOn')))} "
+                   f"(lo lanzó: {quien})")
+    else:
+        detalle = ("Sin ninguna corrida con este --sql_file_key en las últimas 200 "
+                   "(puede que aún no toque su cron, o mirar más historial).")
     if activado_dt:
         detalle += f" (schedule activo desde {activado_dt.strftime('%Y-%m-%d %H:%M UTC')})"
     return {'estado': 'PENDIENTE', 'detalle': detalle}
@@ -170,6 +301,25 @@ def _fmt_utc(dt):
 
 def construir_datos(scheduler, glue):
     schedules = listar_schedules_migrados(scheduler)
+
+    # Contar cuántos schedules apuntan a cada job. Un job usado por >1 schedule
+    # es "compartido" (p.ej. redshift-segmentation) y necesita --sql_file_key
+    # para desambiguar. Un job usado por 1 solo schedule es exclusivo (monitoreo).
+    from collections import Counter
+    conteo_job = Counter()
+    conteo_sql = Counter()   # cuántos schedules usan cada --sql_file_key
+    for s in schedules:
+        try:
+            _inp = json.loads(s.get('Target', {}).get('Input', '{}'))
+        except Exception:
+            _inp = {}
+        _job = _inp.get('JobName')
+        if _job:
+            conteo_job[_job] += 1
+        _sk = (_inp.get('Arguments') or {}).get('--sql_file_key')
+        if _sk:
+            conteo_sql[_sk] += 1
+
     datos = []
     for s in schedules:
         target = s.get('Target', {})
@@ -186,7 +336,25 @@ def construir_datos(scheduler, glue):
         # Si está ENABLED, usamos LastModificationDate (el switch). Como respaldo,
         # si no viene, caemos a CreationDate.
         activado_dt = modificado or creado
-        disparo = comprobar_disparo(glue, job_name, activado_dt)
+        # El --sql_file_key ÚNICO de este schedule (para distinguir su corrida
+        # dentro del job compartido por cientos de schedules).
+        sql_file_key = (inp.get('Arguments') or {}).get('--sql_file_key')
+        trigger_viejo = s.get('Name', '').replace('-schedule', '-trigger')
+        job_compartido = conteo_job.get(job_name, 0) > 1
+        # Si el sql_file_key lo comparten VARIOS schedules, no podemos atribuir
+        # la corrida a uno solo -> el veredicto no es fiable (choque de config).
+        sql_duplicado = conteo_sql.get(sql_file_key, 0) > 1 if sql_file_key else False
+        if sql_duplicado:
+            disparo = {
+                'estado': 'AMBIGUO',
+                'detalle': (f"No fiable: el --sql_file_key '{sql_file_key}' lo usan "
+                            f"{conteo_sql[sql_file_key]} triggers distintos (choque de config). "
+                            f"Revisar con negocio antes de confiar en el disparo."),
+            }
+        else:
+            disparo = comprobar_disparo(glue, job_name, activado_dt, sql_file_key,
+                                        trigger_viejo, job_compartido,
+                                        estado_schedule=s.get('State', 'ENABLED'))
 
         # --- DIAGNÓSTICO por consola (todo en UTC real, para no adivinar) ---
         def _u(dt):
@@ -226,7 +394,7 @@ def construir_datos(scheduler, glue):
             'disparo_detalle': disparo['detalle'],
         })
     # Ordenar: primero los PENDIENTE, luego DISPARADO
-    orden = {'PENDIENTE': 0, 'DISPARADO': 1, 'SIN_JOB': 2, 'SIN_DATOS': 3, 'ERROR': 4}
+    orden = {'PENDIENTE': 0, 'AMBIGUO': 1, 'DISPARADO': 2, 'SIN_JOB': 3, 'SIN_DATOS': 4, 'ERROR': 5}
     datos.sort(key=lambda d: orden.get(d['disparo_estado'], 9))
     return datos
 
@@ -271,6 +439,7 @@ def generar_html(datos):
     .pill { display:inline-block; padding:3px 10px; border-radius:999px; font-size:12px; font-weight:600; }
     .p-DISPARADO { background:#dcfce7; color:#16a34a; }
     .p-PENDIENTE { background:#fef9c3; color:#a16207; }
+    .p-AMBIGUO { background:#ffedd5; color:#c2410c; }
     .p-SIN_JOB, .p-SIN_DATOS { background:#f1f5f9; color:#64748b; }
     .p-ERROR { background:#fee2e2; color:#dc2626; }
     .est-ENABLED { color:#16a34a; font-weight:600; }

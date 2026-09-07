@@ -23,7 +23,7 @@ FASES (el mismo flujo seguro de a-1, pero para todo un lote):
 
 ¿Por qué fases separadas y no todo de golpe?
     Puedes crear 20 schedules DESACTIVADOS hoy (cero riesgo, no disparan nada),
-    revisarlos con calma / con tu jefe, y hacer el switch de los 20 mañana.
+    revisarlos con calma y hacer el switch cuando corresponda.
 
 SEGURIDAD A ESCALA:
     --dry-run   : muestra qué haría, SIN llamar a AWS. Úsalo SIEMPRE primero.
@@ -38,7 +38,7 @@ USO TÍPICO (progresión del plan: 1 -> 5-10 -> masivo):
     python migrar_lote.py --paso crear-lote --limit 5 --dry-run
     python migrar_lote.py --paso crear-lote --limit 5
     python migrar_lote.py --paso verificar-lote --limit 5
-    python migrar_lote.py --paso switch-lote --limit 5        # (¡con tu jefe!)
+    python migrar_lote.py --paso switch-lote --limit 5
 
     # Practicar todo el ciclo con moto (sin AWS real):
     python migrar_lote.py --demo
@@ -72,7 +72,9 @@ def ahora():
 # LECTURA / ESCRITURA DEL ARCHIVO DE CONTROL
 # =============================================================================
 
-def cargar_control(ruta=ARCHIVO_CONTROL):
+def cargar_control(ruta=None):
+    if ruta is None:
+        ruta = ARCHIVO_CONTROL
     if not os.path.exists(ruta):
         raise FileNotFoundError(
             f"No existe {ruta}. Córrelo primero: python generar_control.py --region ...")
@@ -81,7 +83,9 @@ def cargar_control(ruta=ARCHIVO_CONTROL):
     return filas
 
 
-def guardar_control(filas, ruta=ARCHIVO_CONTROL):
+def guardar_control(filas, ruta=None):
+    if ruta is None:
+        ruta = ARCHIVO_CONTROL
     """Escritura atómica: escribe a un temporal y luego reemplaza.
     Así, si el proceso se corta a mitad de escritura, el CSV original no se corrompe."""
     tmp = ruta + '.tmp'
@@ -99,7 +103,7 @@ def seleccionar(filas, estado_requerido, limit=None, filtro=None,
     Filtros disponibles:
       - filtro:      solo triggers cuyo nombre contiene ese texto (familia)
       - frecuencia:  'alta' | 'diaria' | 'infrecuente' (según el cron del CSV)
-                     para migrar en el orden del plan del jefe.
+                     para migrar en el orden definido (alta -> diaria -> infrecuente).
 
     solo_estado_glue no se aplica aquí (requiere consultar AWS); se maneja en
     crear-lote si se pide (empezar por DEACTIVATED).
@@ -286,7 +290,7 @@ def fase_verificar_lote(glue, scheduler, filas, args):
     if not args.dry_run:
         guardar_control(filas)
         print(f"\n  Resumen verificar-lote: {ok} verificados, {malos} con problemas.")
-        print(f"  👉 Cuando estés listo (¡con tu jefe!): "
+        print(f"  👉 Cuando estés listo para el switch: "
               f"python migrar_lote.py --paso switch-lote --limit {args.limit or ''}")
 
 
@@ -406,6 +410,12 @@ PASOS = {
 def main():
     args = parse_args()
 
+    # Permitir un CSV de control por job (--control). Setea la global que usan
+    # cargar_control / guardar_control por defecto.
+    if getattr(args, 'control', None):
+        global ARCHIVO_CONTROL
+        ARCHIVO_CONTROL = args.control
+
     if args.paso == 'resumen':
         filas = cargar_control()
         mostrar_resumen(filas)
@@ -503,11 +513,14 @@ def parse_args():
     p.add_argument('--filtro', help='Solo triggers cuyo nombre contiene este texto')
     p.add_argument('--frecuencia', choices=['alta', 'diaria', 'infrecuente'],
                    help='Solo triggers de esta frecuencia (según el cron). '
-                        'Plan del jefe: migrar primero alta, luego diaria.')
+                        'Orden sugerido: migrar primero alta, luego diaria, luego infrecuente.')
     p.add_argument('--solo-desactivados', action='store_true',
                    help='En crear-lote: solo procesar triggers que ya están DEACTIVATED (lo más seguro)')
     p.add_argument('--dry-run', action='store_true', help='Mostrar qué haría, sin llamar a AWS')
     p.add_argument('--region', default='us-east-1')
+    p.add_argument('--control',
+                   help='Ruta del CSV de control (por defecto control_migracion.csv). '
+                        'Usar el del job, ej: control_redshift_to_lake.csv')
     p.add_argument('--demo', action='store_true', help='Practicar el ciclo completo con moto')
     return p.parse_args()
 
