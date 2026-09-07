@@ -54,9 +54,18 @@ def nombres_migrados_del_control():
 
 
 def listar_schedules(scheduler):
-    """Schedules del proyecto en el grupo 'default'. Si existe el control CSV,
-    se INTERSECTA con los que nosotros migramos (para no tocar ajenos)."""
+    """Nombres de los schedules a re-timezonear.
+
+    Fuente de verdad: control_migracion.csv (estado 'migrado'). Se recorren esos
+    nombres DIRECTAMENTE (no vía list_schedules, que pagina y puede perder). Así
+    tocamos EXACTAMENTE los 334 que migramos, sin importar su prefijo ni omitir
+    ninguno. Si no hay CSV, se cae a list_schedules por prefijo (menos preciso)."""
     del_control = nombres_migrados_del_control()
+    if del_control is not None:
+        print(f"(fuente: control CSV, {len(del_control)} migrados)")
+        return sorted(del_control)
+
+    # Fallback sin CSV: listar grupo default por prefijo
     nombres = []
     token = None
     while True:
@@ -66,18 +75,11 @@ def listar_schedules(scheduler):
         resp = scheduler.list_schedules(**kwargs)
         for s in resp.get('Schedules', []):
             n = s['Name']
-            # Debe ser del proyecto Y (si hay control) haber sido migrado por nosotros
-            es_proyecto = n.startswith(PREFIJO) or n.startswith('sp-') or n.startswith('sp_')
-            if not es_proyecto:
-                continue
-            if del_control is not None and n not in del_control:
-                continue
-            nombres.append(n)
+            if n.startswith(PREFIJO) or n.startswith('sp-') or n.startswith('sp_'):
+                nombres.append(n)
         token = resp.get('NextToken')
         if not token:
             break
-    if del_control is not None:
-        print(f"(fuente: control CSV, {len(del_control)} migrados; se cruzaron con grupo '{GRUPO}')")
     return nombres
 
 
