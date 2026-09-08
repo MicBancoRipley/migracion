@@ -14,6 +14,7 @@ respaldos_borrar/
 
 # Outputs generados
 reporte_seguimiento.html
+reporte_mapeo.html
 *.tmp
 
 # Credenciales / entorno
