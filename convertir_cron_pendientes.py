@@ -70,15 +70,18 @@ def parse_cron(expr):
     return campos if len(campos) == 6 else None
 
 
-def convertir_hora(expr, offset, diario_madrugada=False):
+def convertir_hora(expr, offset, diario_madrugada=False, permitir_wrap_dia=False):
     """Convierte la hora del cron restando offset.
 
-    Si diario_madrugada=True y el cron corre TODOS los dias (dia_mes y dia_sem
-    son * o ?), un underflow es INOFENSIVO: el proceso corre igual cada dia,
-    solo que a hora 24+nueva (p.ej. 0-3 -> 21). En ese caso convertimos igual.
+    Casos de underflow (hora - offset < 0, cruza medianoche hacia atras):
+      - diario (dia_mes y dia_sem son * o ?): el proceso corre TODOS los dias,
+        el wrap es INOFENSIVO (00:00 -> 21:00). Se convierte si diario_madrugada.
+      - dia especifico (viernes, dia 12, MON-FRI): el wrap MUEVE el dia en el
+        cron. Se convierte solo si permitir_wrap_dia=True.
 
-    Si el cron depende de un DIA especifico (viernes, dia 12, MON-FRI...), un
-    underflow CAMBIA el dia de ejecucion -> se aparta (decision de negocio).
+    Nota de negocio (Bastian): estos schedules ya corrian en hora UTC fisica;
+    restar el offset los devuelve a esa hora real historica. El 'cambio de dia'
+    del cron es cosmetico: en tiempo absoluto corren cuando siempre corrieron.
     """
     campos = parse_cron(expr)
     if not campos:
@@ -90,8 +93,8 @@ def convertir_hora(expr, offset, diario_madrugada=False):
     corre_todos_los_dias = dia_mes in ('*', '?') and dia_sem in ('*', '?')
     nueva = int(hora) - offset
     if nueva < 0:
-        if diario_madrugada and corre_todos_los_dias:
-            nueva += 24   # wrap inofensivo: corre cada dia a esta hora local
+        if (diario_madrugada and corre_todos_los_dias) or permitir_wrap_dia:
+            nueva += 24   # wrap: corre a esta hora local (mismo instante UTC de siempre)
         else:
             motivo = 'underflow dia-especifico' if not corre_todos_los_dias else 'underflow'
             return None, f'{motivo} (H={hora}-{offset}={int(hora)-offset})'
@@ -110,6 +113,10 @@ def main():
                     help='Convierte tambien los diarios de madrugada cuyo underflow '
                          'es inofensivo (corren todos los dias; 00:00->21:00). NO toca '
                          'los que dependen de dia especifico (viernes, dia 12, etc.)')
+    ap.add_argument('--permitir-wrap-dia', action='store_true',
+                    help='Convierte TAMBIEN los de dia especifico (viernes, dia 12, '
+                         'MON-FRI) aunque el wrap cambie el dia en el cron. Aprobado por '
+                         'negocio: devuelve el schedule a su hora UTC real historica.')
     ap.add_argument('--region', default='us-east-1')
     args = ap.parse_args()
 
@@ -138,7 +145,8 @@ def main():
 
         viejo = s['ScheduleExpression']
         nuevo, motivo = convertir_hora(viejo, args.offset,
-                                       diario_madrugada=args.convertir_diario_madrugada)
+                                       diario_madrugada=args.convertir_diario_madrugada,
+                                       permitir_wrap_dia=args.permitir_wrap_dia)
         if nuevo is None:
             apart += 1
             apartados.append((nombre, viejo, motivo))
