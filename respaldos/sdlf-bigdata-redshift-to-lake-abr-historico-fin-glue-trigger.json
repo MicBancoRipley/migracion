@@ -1,0 +1,24 @@
+{
+  "Name": "sdlf-bigdata-redshift-to-lake-abr-historico-fin-glue-trigger",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(00 15 * * ? *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-to-lake-glue-job",
+      "Arguments": {
+        "--conf": "spark.sql.legacy.parquet.int96RebaseModeInRead=CORRECTED --conf spark.sql.legacy.parquet.int96RebaseModeInWrite=CORRECTED --conf spark.sql.legacy.parquet.datetimeRebaseModeInRead=CORRECTED --conf spark.sql.legacy.parquet.datetimeRebaseModeInWrite=CORRECTED --conf spark.sql.catalog.glue_catalog.glue.skip-name-validation=true",
+        "--partition_col": "periodo",
+        "--team": "bigdata",
+        "--overwrite": "false",
+        "--query": "select * from schm_data_analytics.abr_historico_fin where periodo >= schm_artifacts.f_period(trunc(dateadd(mm,-1,current_date)))",
+        "--table": "abr_historico_fin",
+        "--cluster": "bigdata",
+        "--schema": "schm_data_analytics"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "trigger to execute RDS abr-historico-fin",
+  "_respaldado_en": "2026-09-07T14:35:25.301379+00:00"
+}

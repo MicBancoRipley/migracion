@@ -1,0 +1,24 @@
+{
+  "Name": "sdlf-bigdata-rstl-reporte-comite-ti-glue-trigger",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(00 14 ? * MON *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-to-lake-glue-job",
+      "Arguments": {
+        "--conf": "spark.sql.legacy.parquet.int96RebaseModeInRead=CORRECTED --conf spark.sql.legacy.parquet.int96RebaseModeInWrite=CORRECTED --conf spark.sql.legacy.parquet.datetimeRebaseModeInRead=CORRECTED --conf spark.sql.legacy.parquet.datetimeRebaseModeInWrite=CORRECTED",
+        "--partition_col": "false",
+        "--team": "bigdata",
+        "--overwrite": "false",
+        "--query": "select * from biseguros.schm_reporting.reporte_comite_ti",
+        "--table": "reporte_comite_ti",
+        "--cluster": "seguros",
+        "--schema": "biseguros.schm_reporting"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "",
+  "_respaldado_en": "2026-09-07T14:35:37.710523+00:00"
+}

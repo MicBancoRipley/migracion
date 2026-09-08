@@ -1,0 +1,23 @@
+{
+  "Name": "sdlf-bigdata-rstl-cobranzas-fact-modelo-contactabilidad-glue-trigger",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(00 12 * * ? *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-to-lake-glue-job",
+      "Arguments": {
+        "--team": "cobranzas",
+        "--partition_col": "false",
+        "--overwrite": "true",
+        "--query": "false",
+        "--table": "fact_modelo_contactabilidad",
+        "--cluster": "cobranzas",
+        "--schema": "cg_contactabilidad"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "",
+  "_respaldado_en": "2026-09-07T14:35:34.310262+00:00"
+}

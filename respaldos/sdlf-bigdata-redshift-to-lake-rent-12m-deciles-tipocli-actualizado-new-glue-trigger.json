@@ -1,0 +1,24 @@
+{
+  "Name": "sdlf-bigdata-redshift-to-lake-rent-12m-deciles-tipocli-actualizado-new-glue-trigger",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(00 15 10 * ? *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-to-lake-glue-job",
+      "Arguments": {
+        "--conf": "spark.sql.legacy.parquet.int96RebaseModeInRead=CORRECTED --conf spark.sql.legacy.parquet.int96RebaseModeInWrite=CORRECTED --conf spark.sql.legacy.parquet.datetimeRebaseModeInRead=CORRECTED --conf spark.sql.legacy.parquet.datetimeRebaseModeInWrite=CORRECTED",
+        "--team": "customer360",
+        "--partition_col": "periodo",
+        "--overwrite": "true",
+        "--query": "select * from schm_insight.rent_12m_deciles_tipocli_actualizado_new where periodo = schm_artifacts.f_period(DATEADD(month, -2, getdate())::DATE)::int",
+        "--table": "rent_12m_deciles_tipocli_actualizado_new",
+        "--cluster": "bigdata",
+        "--schema": "schm_insight"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "trigger to execute RDS rent_12m_deciles_tipocli_actualizado_new",
+  "_respaldado_en": "2026-09-07T14:35:31.873958+00:00"
+}

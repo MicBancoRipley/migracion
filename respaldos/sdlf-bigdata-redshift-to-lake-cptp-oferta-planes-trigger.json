@@ -1,0 +1,23 @@
+{
+  "Name": "sdlf-bigdata-redshift-to-lake-cptp-oferta-planes-trigger",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(00 21 * * ? *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-to-lake-glue-job",
+      "Arguments": {
+        "--team": "bigdata",
+        "--partition_col": "periodo",
+        "--overwrite": "true",
+        "--query": "false",
+        "--table": "cptp_oferta_planes",
+        "--cluster": "bigdata",
+        "--schema": "schm_data_analytics"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "",
+  "_respaldado_en": "2026-09-07T14:35:28.103965+00:00"
+}

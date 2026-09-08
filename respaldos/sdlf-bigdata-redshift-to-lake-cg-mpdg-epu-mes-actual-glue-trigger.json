@@ -1,0 +1,22 @@
+{
+  "Name": "sdlf-bigdata-redshift-to-lake-cg-mpdg-epu-mes-actual-glue-trigger",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(00 21 * * ? *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-to-lake-glue-job",
+      "Arguments": {
+        "--overwrite": "true",
+        "--table": "mdpg_epu_mes_actual",
+        "--cluster": "bigdata",
+        "--schema": "schm_data_analytics",
+        "--partition_col": "periodo",
+        "--team": "cg"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "",
+  "_respaldado_en": "2026-09-07T14:35:27.164460+00:00"
+}

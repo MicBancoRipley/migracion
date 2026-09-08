@@ -1,0 +1,24 @@
+{
+  "Name": "sdlf-bigdata-redshift-to-lake-rfraude-out-rutero-direcciones-glue-trigger",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(30 1,14,19 * * ? *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-to-lake-glue-job",
+      "Arguments": {
+        "--conf": "spark.sql.legacy.parquet.int96RebaseModeInRead=CORRECTED --conf spark.sql.legacy.parquet.int96RebaseModeInWrite=CORRECTED --conf spark.sql.legacy.parquet.datetimeRebaseModeInRead=CORRECTED --conf spark.sql.legacy.parquet.datetimeRebaseModeInWrite=CORRECTED",
+        "--partition_col": "fecha",
+        "--team": "riesgo",
+        "--overwrite": "true",
+        "--query": "false",
+        "--table": "rfraude_out_rutero_direcciones_notjudicial",
+        "--cluster": "bigdata",
+        "--schema": "schm_data_analytics"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "",
+  "_respaldado_en": "2026-09-07T14:35:32.303070+00:00"
+}
