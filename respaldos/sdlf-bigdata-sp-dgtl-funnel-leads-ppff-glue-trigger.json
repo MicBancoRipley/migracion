@@ -1,0 +1,19 @@
+{
+  "Name": "sdlf-bigdata-sp-dgtl-funnel-leads-ppff-glue-trigger",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(15 7 * * ? *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-segmentation-schedule-glue-job",
+      "Arguments": {
+        "--sql_file_key": "redshift-sql-scheduled/call_sp_dgtl_funnel_tef.sql",
+        "--conf": "spark.sql.legacy.parquet.int96RebaseModeInRead=CORRECTED --conf spark.sql.legacy.parquet.int96RebaseModeInWrite=CORRECTED --conf spark.sql.legacy.parquet.datetimeRebaseModeInRead=CORRECTED --conf spark.sql.legacy.parquet.datetimeRebaseModeInWrite=CORRECTED",
+        "--vs_notification": "digital"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "",
+  "_respaldado_en": "2026-09-02T16:07:21.714078+00:00"
+}

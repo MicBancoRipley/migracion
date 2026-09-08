@@ -1,0 +1,18 @@
+{
+  "Name": "sdlf-bigdata-cptp-foto-tablon-adquisicion-inicio-mes-glue-trigger",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(15 14 11 * ? *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-segmentation-schedule-glue-job",
+      "Arguments": {
+        "--sql_file_key": "redshift-sql-scheduled/call_sp_cptp_foto_tablon_adquisicion_inicio_mes.sql",
+        "--vs_notification": "ppff"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "trigger to execute call_sp_cptp_foto_tablon_adquisicion_inicio_mes",
+  "_respaldado_en": "2026-09-02T16:06:46.934110+00:00"
+}

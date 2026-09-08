@@ -1,0 +1,23 @@
+{
+  "Name": "sdlf-bigdata-rstl-cobranzas-cgdm-fact-mejor-gestion-diaria-glue-trigger",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(00 17 * * ? *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-to-lake-glue-job",
+      "Arguments": {
+        "--team": "cobranzas",
+        "--partition_col": "periodo",
+        "--overwrite": "false",
+        "--query": "select * from cg_dm.fact_mejor_gestion_diaria where periodo = ( select max(periodo) from cg_dm.fact_mejor_gestion_diaria )",
+        "--table": "fact_mejor_gestion_diaria",
+        "--cluster": "cobranzas",
+        "--schema": "cg_dm"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "",
+  "_respaldado_en": "2026-09-07T14:35:34.081922+00:00"
+}

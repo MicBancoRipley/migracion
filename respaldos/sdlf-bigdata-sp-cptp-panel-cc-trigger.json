@@ -1,0 +1,20 @@
+{
+  "Name": "sdlf-bigdata-sp-cptp-panel-cc-trigger",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(00 14 * * ? *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-segmentation-schedule-glue-job",
+      "Arguments": {
+        "--vs_notification": "ppff",
+        "--additional-python-modules": "awscli==1.23.5,boto3==1.22.5,sqlparse==0.4.3",
+        "--base_sql_bucket": "br-dm-prod-us-east-1-837538682169-artifactory",
+        "--sql_file_key": "redshift-sql-scheduled/call_sp_cptp_panel_ctacte.sql"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "",
+  "_respaldado_en": "2026-09-02T16:07:09.016756+00:00"
+}

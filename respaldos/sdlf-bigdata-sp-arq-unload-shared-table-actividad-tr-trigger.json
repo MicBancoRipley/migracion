@@ -1,0 +1,20 @@
+{
+  "Name": "sdlf-bigdata-sp-arq-unload-shared-table-actividad-tr-trigger",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(30 9 10 * ? *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-segmentation-schedule-glue-job",
+      "Arguments": {
+        "--vs_notification": "general",
+        "--additional-python-modules": "awscli==1.23.5,boto3==1.22.5,sqlparse==0.4.3",
+        "--base_sql_bucket": "br-dm-prod-us-east-1-837538682169-artifactory",
+        "--sql_file_key": "redshift-sql-scheduled/call_sp_unload_shared_tables_actividad_tr.sql"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "",
+  "_respaldado_en": "2026-09-02T16:06:52.262676+00:00"
+}

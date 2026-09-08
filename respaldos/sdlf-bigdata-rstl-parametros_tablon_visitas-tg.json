@@ -1,0 +1,26 @@
+{
+  "Name": "sdlf-bigdata-rstl-parametros_tablon_visitas-tg",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(15 11 * * ? *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-to-lake-glue-job",
+      "Arguments": {
+        "--extra-py-files": "s3://br-dm-prod-us-east-1-837538682169-artifactory/artifacts/common_library/common_library.zip",
+        "--conf": "spark.sql.legacy.parquet.int96RebaseModeInRead=CORRECTED --conf spark.sql.legacy.parquet.int96RebaseModeInWrite=CORRECTED --conf spark.sql.legacy.parquet.datetimeRebaseModeInRead=CORRECTED --conf spark.sql.legacy.parquet.datetimeRebaseModeInWrite=CORRECTED",
+        "--partition_col": "false",
+        "--team": "customer360",
+        "--overwrite": "true",
+        "--query": "false",
+        "--table": "ppff_parametros_tablon_visitas",
+        "--cluster": "bigdata",
+        "--extra-jars": "s3://br-dm-prod-us-east-1-837538682169-artifactory/customer360/hudi/glue3/hudi-spark3.1.2-bundle_2.12-0.10.1.jar,s3://br-dm-prod-us-east-1-837538682169-artifactory/customer360/hudi/glue3/hudi-utilities-bundle_2.12-0.10.1.jar,s3://br-dm-prod-us-east-1-837538682169-artifactory/customer360/hudi/glue3/spark-avro_2.12-3.1.1.jar",
+        "--schema": "schm_data_analytics"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "",
+  "_respaldado_en": "2026-09-07T14:35:36.391220+00:00"
+}

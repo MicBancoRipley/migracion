@@ -1,0 +1,27 @@
+{
+  "Name": "sdlf-bigdata-platun-step3-trigger",
+  "Type": "CONDITIONAL",
+  "State": "ACTIVATED",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-segmentation-schedule-glue-job",
+      "Arguments": {
+        "--sql_file_key": "redshift-sql-scheduled/call_sp_ppff_curses_platun.sql"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "",
+  "Predicate": {
+    "Logical": "AND",
+    "Conditions": [
+      {
+        "LogicalOperator": "EQUALS",
+        "JobName": "sdlf-bigdata-platun-etl-glue-job",
+        "State": "SUCCEEDED"
+      }
+    ]
+  },
+  "WorkflowName": "sdlf-bigdata-platun-workflow",
+  "_respaldado_en": "2026-09-02T16:06:50.102781+00:00"
+}

@@ -1,0 +1,23 @@
+{
+  "Name": "sdlf-bigdata-rtl-cptp.capta-cdp-glue-trigger",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(00 19 * * ? *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-to-lake-glue-job",
+      "Arguments": {
+        "--team": "bigdata",
+        "--partition_col": "periodo",
+        "--overwrite": "false",
+        "--query": "select * from schm_data_analytics.cptp_capta_cdp where periodo=schm_artifacts.f_period(current_date)",
+        "--table": "cptp_capta_cdp",
+        "--cluster": "bigdata",
+        "--schema": "schm_data_analytics"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "",
+  "_respaldado_en": "2026-09-07T14:35:40.560189+00:00"
+}

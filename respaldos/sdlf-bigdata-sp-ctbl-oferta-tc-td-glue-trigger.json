@@ -1,0 +1,20 @@
+{
+  "Name": "sdlf-bigdata-sp-ctbl-oferta-tc-td-glue-trigger",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(55 12 ? * * *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-segmentation-schedule-glue-job",
+      "Arguments": {
+        "--vs_notification": "contactabilidad",
+        "--additional-python-modules": "awscli==1.23.5,boto3==1.22.5,sqlparse==0.4.3",
+        "--base_sql_bucket": "br-dm-prod-us-east-1-837538682169-artifactory",
+        "--sql_file_key": "redshift-sql-scheduled/call_sp_ctbl_oferta_tc_td.sql"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "trigger to execute call_sp_ctbl_oferta_tc_td",
+  "_respaldado_en": "2026-09-02T16:07:15.672585+00:00"
+}

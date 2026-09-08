@@ -1,0 +1,19 @@
+{
+  "Name": "sdlf-bigdata-call-sp-ctbl-consolidado-listas-negras-trigger",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(0 12 ? * * *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-segmentation-schedule-glue-job",
+      "Arguments": {
+        "--additional-python-modules": "awscli==1.23.5,boto3==1.22.5,sqlparse==0.4.3",
+        "--sql_file_key": "redshift-sql-scheduled/call_sp_ctbl_consolidado_listas_negras.sql",
+        "--vs_notification": "contactabilidad"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "trigger to execute call_sp_ctbl_consolidado_listas_negras.sql",
+  "_respaldado_en": "2026-09-02T16:06:39.888961+00:00"
+}

@@ -1,0 +1,20 @@
+{
+  "Name": "sdlf-bigdata-sp-earq-count-dup-cdcreporitf2-glue-trigger",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(10 07 * * ? *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-segmentation-schedule-glue-job",
+      "Arguments": {
+        "--additional-python-modules": "awscli==1.23.5,boto3==1.22.5,sqlparse==0.4.3",
+        "--sql_file_key": "redshift-sql-scheduled/call_sp_earq_count_dup_cdcreporitf2.sql",
+        "--vs_notification": "earq"
+      },
+      "Timeout": 180,
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "trigger to call_sp_earq_count_dup_cdcreporitf2",
+  "_respaldado_en": "2026-09-02T16:07:27.141314+00:00"
+}

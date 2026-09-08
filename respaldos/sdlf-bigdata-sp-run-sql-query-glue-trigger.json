@@ -1,0 +1,18 @@
+{
+  "Name": "sdlf-bigdata-sp-run-sql-query-glue-trigger",
+  "Type": "SCHEDULED",
+  "State": "DEACTIVATED",
+  "Schedule": "cron(00 7 * * ? *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-segmentation-schedule-glue-job",
+      "Arguments": {
+        "--sql_file_key": "redshift-sql-scheduled/call_sp_run_sql_query.sql",
+        "--vs_notification": "general"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "",
+  "_respaldado_en": "2026-09-02T16:07:52.450529+00:00"
+}

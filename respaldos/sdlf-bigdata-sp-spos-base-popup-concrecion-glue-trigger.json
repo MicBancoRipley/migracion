@@ -1,0 +1,18 @@
+{
+  "Name": "sdlf-bigdata-sp-spos-base-popup-concrecion-glue-trigger",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(00 20 * * ? *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-segmentation-schedule-glue-job",
+      "Arguments": {
+        "--sql_file_key": "redshift-sql-scheduled/call_sp_spos_base_popup_concrecion.sql",
+        "--vs_notification": "facturacion"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "",
+  "_respaldado_en": "2026-09-02T16:07:53.662864+00:00"
+}

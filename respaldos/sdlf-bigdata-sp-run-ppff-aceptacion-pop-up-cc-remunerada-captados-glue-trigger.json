@@ -1,0 +1,20 @@
+{
+  "Name": "sdlf-bigdata-sp-run-ppff-aceptacion-pop-up-cc-remunerada-captados-glue-trigger",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(0 2,14 ? * * *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-segmentation-schedule-glue-job",
+      "Arguments": {
+        "--vs_notification": "ppff",
+        "--additional-python-modules": "awscli==1.23.5,boto3==1.22.5,sqlparse==0.4.3",
+        "--base_sql_bucket": "br-dm-prod-us-east-1-837538682169-artifactory",
+        "--sql_file_key": "redshift-sql-scheduled/call_sp_run_ppff_aceptacion_pop_up_cc_remunerada_captados.sql"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "trigger to execute call_sp_run_ppff_aceptacion_pop_up_cc_remunerada_captados",
+  "_respaldado_en": "2026-09-02T16:07:50.859179+00:00"
+}

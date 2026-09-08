@@ -1,0 +1,20 @@
+{
+  "Name": "sdlf-bigdata-cptp-captaciones-monoproducto-cc-glue-trigger",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(0 3,15 ? * * *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-segmentation-schedule-glue-job",
+      "Arguments": {
+        "--vs_notification": "clientes",
+        "--additional-python-modules": "awscli==1.23.5,boto3==1.22.5,sqlparse==0.4.3",
+        "--base_sql_bucket": "br-dm-prod-us-east-1-837538682169-artifactory",
+        "--sql_file_key": "redshift-sql-scheduled/sp_cptp_captaciones_monoproducto_cc.sql"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "trigger to execute sp_cptp_captaciones_monoproducto_cc.sql",
+  "_respaldado_en": "2026-09-02T16:06:46.714184+00:00"
+}

@@ -1,0 +1,24 @@
+{
+  "Name": "sdlf-bigdata-redshift-to-lake-cbz-reporte-recaudacion-integrado-glue-trigger",
+  "Type": "SCHEDULED",
+  "State": "ACTIVATED",
+  "Schedule": "cron(15 14 * * ? *)",
+  "Actions": [
+    {
+      "JobName": "sdlf-bigdata-redshift-to-lake-glue-job",
+      "Arguments": {
+        "--conf": "spark.sql.legacy.parquet.int96RebaseModeInRead=CORRECTED --conf spark.sql.legacy.parquet.int96RebaseModeInWrite=CORRECTED --conf spark.sql.legacy.parquet.datetimeRebaseModeInRead=CORRECTED --conf spark.sql.legacy.parquet.datetimeRebaseModeInWrite=CORRECTED",
+        "--partition_col": "false",
+        "--team": "bigdata",
+        "--overwrite": "false",
+        "--query": "false",
+        "--table": "reporte_recaudacion_integrado",
+        "--cluster": "cobranzas",
+        "--schema": "cg_recaudacion"
+      },
+      "SecurityConfiguration": "sdlf-bigdata-glue-security-config"
+    }
+  ],
+  "Description": "",
+  "_respaldado_en": "2026-09-07T14:35:26.694369+00:00"
+}
