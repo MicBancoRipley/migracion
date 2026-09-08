@@ -126,15 +126,15 @@ Un schedule se considera **migrado y funcionando** cuando aparece una corrida co
 
 ## 6. Casos especiales encontrados (y cómo se resolvieron)
 
-| Caso | Situación | Resolución |
-|------|-----------|-----------|
-| **Nombres >64 chars** | EventBridge rechaza el nombre | Regla de acortado (quitar `sdlf-bigdata-`, `-glue`, `-new`) |
-| **Caracteres inválidos** (`ñ`, `:`) | EventBridge rechaza el nombre | Limpieza automática de caracteres |
-| **Cron inválido** (ej. `2.3`) | Cron corrupto, EventBridge lo rechaza; se verificó que **no disparaba hace 30 días** | Apartado; negocio decidió borrarlo (duplicado muerto) |
-| **Choque de sql_file_key** | Varios triggers ejecutan el mismo SQL → doble ejecución preexistente | Reportado a negocio; se migraron los válidos tal cual, negocio revisa duplicados |
-| **Trigger CONDITIONAL** | Workflow, no migrable a Scheduler | Se deja como Glue trigger |
-| **Trigger multi-job** | Un trigger dispara 2 jobs (uno de BI) | Se deja como Glue trigger |
-| **Desfase de horario** | Schedules en UTC se desfasaron con el cambio de hora de Chile | Se pasaron todos a `America/Santiago` (ajuste DST automático) |
+| Caso | Cantidad | Situación | Resolución |
+|------|----------|-----------|-----------|
+| **Nombres >64 chars** | 32 en SEGMENTATION + 27 en redshift-to-lake | EventBridge rechaza el nombre (límite de 64 caracteres) | Regla de acortado (quitar `sdlf-bigdata-`, `-glue`, `-new`) |
+| **Caracteres inválidos** (`ñ`, `:`) | 2 | EventBridge rechaza el nombre (solo acepta `A-Z a-z 0-9 . - _`) | Limpieza automática de caracteres |
+| **Cron inválido** (ej. `2.3`) | 1 | Cron corrupto, EventBridge lo rechaza; se verificó que **no disparaba hace 30 días** | Apartado; negocio decidió borrarlo (duplicado muerto) |
+| **Choque de sql_file_key** | 8 grupos | Varios triggers ejecutan el mismo SQL → doble ejecución preexistente | Reportado a negocio; se migraron los válidos tal cual, negocio revisa duplicados |
+| **Trigger CONDITIONAL** | 31 | Workflow, no migrable a Scheduler | Se deja como Glue trigger |
+| **Trigger multi-job** | 1 | Un trigger dispara 2 jobs (uno de BI) | Se deja como Glue trigger |
+| **Desfase de horario** | 334+ | Schedules en UTC se desfasaron con el cambio de hora de Chile | Se pasaron todos a `America/Santiago` (ajuste DST automático) |
 
 ---
 
