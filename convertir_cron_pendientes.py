@@ -70,16 +70,31 @@ def parse_cron(expr):
     return campos if len(campos) == 6 else None
 
 
-def convertir_hora(expr, offset):
+def convertir_hora(expr, offset, diario_madrugada=False):
+    """Convierte la hora del cron restando offset.
+
+    Si diario_madrugada=True y el cron corre TODOS los dias (dia_mes y dia_sem
+    son * o ?), un underflow es INOFENSIVO: el proceso corre igual cada dia,
+    solo que a hora 24+nueva (p.ej. 0-3 -> 21). En ese caso convertimos igual.
+
+    Si el cron depende de un DIA especifico (viernes, dia 12, MON-FRI...), un
+    underflow CAMBIA el dia de ejecucion -> se aparta (decision de negocio).
+    """
     campos = parse_cron(expr)
     if not campos:
         return None, 'no-parseable'
     hora = campos[1]
     if not re.match(r'^\d{1,2}$', hora):
         return None, f'hora no simple ({hora})'
+    dia_mes, dia_sem = campos[2], campos[4]
+    corre_todos_los_dias = dia_mes in ('*', '?') and dia_sem in ('*', '?')
     nueva = int(hora) - offset
     if nueva < 0:
-        return None, f'underflow (H={hora}-{offset}={nueva})'
+        if diario_madrugada and corre_todos_los_dias:
+            nueva += 24   # wrap inofensivo: corre cada dia a esta hora local
+        else:
+            motivo = 'underflow dia-especifico' if not corre_todos_los_dias else 'underflow'
+            return None, f'{motivo} (H={hora}-{offset}={int(hora)-offset})'
     if nueva > 23:
         return None, f'overflow (H={nueva})'
     campos[1] = str(nueva)
@@ -91,6 +106,10 @@ def main():
     ap.add_argument('--lista', required=True, help='Archivo .txt con nombres de schedule (uno por linea)')
     ap.add_argument('--offset', type=int, required=True, help='Horas a restar (verano=3, invierno=4)')
     ap.add_argument('--dry-run', action='store_true')
+    ap.add_argument('--convertir-diario-madrugada', action='store_true',
+                    help='Convierte tambien los diarios de madrugada cuyo underflow '
+                         'es inofensivo (corren todos los dias; 00:00->21:00). NO toca '
+                         'los que dependen de dia especifico (viernes, dia 12, etc.)')
     ap.add_argument('--region', default='us-east-1')
     args = ap.parse_args()
 
@@ -118,7 +137,8 @@ def main():
             continue
 
         viejo = s['ScheduleExpression']
-        nuevo, motivo = convertir_hora(viejo, args.offset)
+        nuevo, motivo = convertir_hora(viejo, args.offset,
+                                       diario_madrugada=args.convertir_diario_madrugada)
         if nuevo is None:
             apart += 1
             apartados.append((nombre, viejo, motivo))
