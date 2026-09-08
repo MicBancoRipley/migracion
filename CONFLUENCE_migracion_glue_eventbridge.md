@@ -28,12 +28,25 @@ servicio recomendado por AWS para esto.
 ## 2. El problema
 
 **AWS Glue tiene un límite (cuota) de triggers por cuenta.** Ese límite estaba
-**lleno**, lo que impedía crear nuevos triggers para nuevos procesos. La mayoría de
-esos triggers eran del tipo **SCHEDULED** (se disparan por un cron/horario) y no
-necesitaban estar en Glue: podían vivir en **EventBridge Scheduler**, que:
+**lleno**, lo que impedía crear nuevos triggers para nuevos procesos.
+
+### Cuotas de AWS Glue relevantes
+
+| Cuota (Service Quotas) | Valor | Ajustable |
+|------------------------|-------|-----------|
+| **Max triggers per account** | **1.000** | No (nivel de cuenta) |
+| Max jobs per trigger | 50 | No (nivel de cuenta) |
+
+El límite de **1.000 triggers por cuenta** es fijo (no ajustable) y se había
+alcanzado. La única forma de crear nuevos disparos por horario era **liberar
+espacio** sacando de Glue los triggers que no necesitaban estar ahí.
+
+La mayoría de esos triggers eran del tipo **SCHEDULED** (se disparan por un
+cron/horario) y no necesitaban vivir en Glue: podían moverse a **EventBridge
+Scheduler**, que:
 
 - Es el servicio de AWS pensado para programación por horario.
-- No consume cuota de Glue.
+- **No consume la cuota de triggers de Glue.**
 - Soporta timezones con ajuste automático de horario de verano/invierno.
 
 **Restricción clave:** no se podía detener ni duplicar la ejecución de los procesos.
