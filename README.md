@@ -86,11 +86,30 @@ EventBridge Scheduler limita el nombre a 64 caracteres y solo acepta
 
 ## Verificación y rollback
 
-- **`reporte_seguimiento.py`** genera un HTML que indica, por schedule migrado,
-  si ya disparó por EventBridge (DISPARADO / PENDIENTE / AMBIGUO). Distingue el
-  disparo real usando el `--sql_file_key` y el `TriggerName` de cada job run.
-- **Rollback:** reactivar el trigger viejo desde su respaldo y desactivar el
-  schedule (los respaldos quedan en `respaldos/`).
+### Generar el reporte de seguimiento
+
+Genera un HTML (`reporte_seguimiento.html`) que indica, por cada schedule
+migrado, si ya disparó por EventBridge (**DISPARADO / PENDIENTE / AMBIGUO**).
+Distingue el disparo real usando el `--sql_file_key` y el `TriggerName` de cada
+job run (así no confunde el disparo de un schedule con el de otro que comparte job).
+
+Dos formas equivalentes de generarlo:
+
+```bash
+# Opción 1: vía migrar_seguro (solo regenera el reporte, no migra nada)
+python migrar_seguro.py --paso reporte --region us-east-1
+
+# Opción 2: ejecutar el generador directamente
+python reporte_seguimiento.py --region us-east-1
+```
+
+> Nota: `migrar_seguro.py` también regenera el reporte automáticamente después
+> de los pasos que cambian estado (crear / switch), salvo que se use `--sin-reporte`.
+
+### Rollback
+
+Si un schedule falla, reactivar el trigger viejo desde su respaldo
+(`respaldos/<nombre>.json`) y desactivar el schedule. Se vuelve al estado original.
 
 ---
 
