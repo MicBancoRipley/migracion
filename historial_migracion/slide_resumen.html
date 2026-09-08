@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Resumen Migración - Slide</title>
+<style>
+  :root{
+    --morado:#5b1a8b;      /* morado Ripley */
+    --morado2:#7b2cbf;
+    --magenta:#c2185b;     /* rosa/magenta de los titulos */
+    --verde:#16a34a;
+    --gris:#64748b;
+    --fondo:#ffffff;
+    --panel:#f7f2fb;       /* lila muy claro */
+  }
+  *{box-sizing:border-box; font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;}
+  body{margin:0; background:#e9e4ef; display:flex; justify-content:center; padding:24px;}
+  .slide{
+    width:960px; min-height:540px; background:var(--fondo); border-radius:14px;
+    padding:40px 48px; box-shadow:0 10px 40px rgba(0,0,0,.15);
+  }
+  .kicker{color:var(--magenta); font-weight:700; font-size:13px; letter-spacing:2px; text-transform:uppercase;}
+  h1{color:#1a1a2e; font-size:30px; margin:6px 0 4px;}
+  h1 span{ text-decoration: underline; text-decoration-color:var(--magenta); text-decoration-thickness:3px;}
+  .sub{color:var(--gris); font-size:15px; margin-bottom:24px;}
+  .sub b{color:var(--morado);}
+
+  .kpis{display:flex; gap:16px; margin-bottom:26px;}
+  .kpi{flex:1; background:var(--panel); border-radius:12px; padding:18px; text-align:center; border-top:4px solid var(--morado);}
+  .kpi .n{font-size:38px; font-weight:800; color:var(--morado); line-height:1;}
+  .kpi .l{font-size:12px; color:var(--gris); margin-top:8px;}
+  .kpi.ok .n{color:var(--verde);} .kpi.ok{border-top-color:var(--verde);}
+
+  .cols{display:flex; gap:28px;}
+  .col{flex:1;}
+  .col h3{color:var(--morado); font-size:14px; text-transform:uppercase; letter-spacing:1px; margin:0 0 10px; border-bottom:2px solid #ead9f7; padding-bottom:6px;}
+  ul{margin:0; padding-left:0; list-style:none;}
+  li{font-size:14px; color:#2b2b3a; margin-bottom:9px; padding-left:22px; position:relative; line-height:1.35;}
+  li::before{content:"●"; color:var(--magenta); position:absolute; left:0; font-size:11px; top:3px;}
+  code{background:#efe3f9; color:var(--morado); padding:1px 6px; border-radius:5px; font-size:13px;}
+
+  .foot{margin-top:26px; display:flex; align-items:center; gap:10px;}
+  .badge{background:var(--verde); color:#fff; font-weight:700; font-size:12px; padding:5px 14px; border-radius:999px;}
+  .foot .txt{color:var(--gris); font-size:13px;}
+</style>
+</head>
+<body>
+  <div class="slide">
+    <div class="kicker">Equipo de Arq. Datos · Operación</div>
+    <h1>Migración <span>Glue&nbsp;Triggers → EventBridge&nbsp;Scheduler</span></h1>
+    <div class="sub">La cuota de Glue Triggers (<b>límite 1.000/cuenta, no ampliable</b>) estaba llena e impedía crear nuevos procesos.</div>
+
+    <div class="kpis">
+      <div class="kpi"><div class="n">~505</div><div class="l">Migrados a EventBridge</div></div>
+      <div class="kpi"><div class="n">34</div><div class="l">Borrados (obsoletos)</div></div>
+      <div class="kpi"><div class="n">77</div><div class="l">Dejados por diseño</div></div>
+      <div class="kpi ok"><div class="n">0</div><div class="l">Errores en producción</div></div>
+    </div>
+
+    <div class="cols">
+      <div class="col">
+        <h3>Qué hicimos</h3>
+        <ul>
+          <li>Flujo seguro por lotes: <b>crear → verificar → switch</b> (sin doble ejecución)</li>
+          <li>Todos los schedules en <code>America/Santiago</code> (ajuste horario automático)</li>
+          <li>Reglas de nombres (&gt;64 chars, caracteres inválidos) y detección de duplicados</li>
+          <li>Respaldo de cada trigger antes de tocarlo</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>Qué quedó fuera (y por qué)</h3>
+        <ul>
+          <li><b>Workflows</b> — se disparan por dependencia, no por horario</li>
+          <li><b>Matinal</b> — proceso crítico encadenado (se mantiene en Glue)</li>
+          <li><b>BI</b> — pertenece a otro equipo, fuera de alcance</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot">
+      <span class="badge">FINALIZADO</span>
+      <span class="txt">Cuota de Glue liberada · documentado en Confluence · código en repo del equipo</span>
+    </div>
+  </div>
+</body>
+</html>
