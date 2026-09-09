@@ -19,5 +19,10 @@ reporte_mapeo.html
 
 # Credenciales / entorno
 .env
-renombrados_migracion.csv
 respaldos_grupos/
+
+# Listas de trabajo temporales (contienen nombres de procesos reales)
+renombrados_migracion.csv
+_pendientes*.txt
+_listas_horas*.txt
+_*.txt

@@ -1,7 +1,0 @@
-redshift-to-lake-rfraude-in-rutero-direcciones-schedule
-redshift-to-lake-rfraude-out-rutero-direcciones-schedule
-sdlf-bigdata-cptp-captaciones-monoproducto-cc-glue-schedule
-sdlf-bigdata-ppff-stock-dap-tg-job-schedule
-sdlf-bigdata-sp-ctbl-rutero-dir-rfraude-glue-schedule
-sdlf-bigdata-sp-ppff-cc-remunerada-nuevos-glue-schedule
-sp-run-ppff-aceptacion-pop-up-cc-remunerada-captados-schedule
