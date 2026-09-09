@@ -56,6 +56,7 @@ import datetime
 # Reutilizamos la lógica ya probada en producción.
 import migrar_seguro
 import generar_control
+import reglas_migracion   # reglas de creación (offset cron + grupo destino)
 
 ARCHIVO_CONTROL = 'control_migracion.csv'
 
@@ -166,9 +167,10 @@ def fase_crear_lote(glue, scheduler, filas, args):
         return
 
     from botocore.exceptions import ClientError
-    creados = errores = 0
+    creados = errores = revisar_n = 0
 
     import reglas_exclusion
+    grupos_asegurados = set()   # para no llamar get/create_schedule_group por cada fila
 
     for fila in elegibles:
         nombre = fila['trigger_name']
@@ -191,20 +193,41 @@ def fase_crear_lote(glue, scheduler, filas, args):
                 print(f"  ⏭️  {nombre}: trigger está {trigger.get('State')} (no DEACTIVATED) -> se salta")
                 continue
 
-            params = migrar_seguro.construir_params(trigger, estado='DISABLED')
+            # construir_params ahora aplica offset de cron + grupo + timezone, y
+            # devuelve 'revisar'=True para los casos delicados (dia-especifico con
+            # wrap, overflow) que NO deben crearse con un horario dudoso.
+            params, revisar, motivo_cron = migrar_seguro.construir_params(trigger, estado='DISABLED')
             job = json.loads(params['Target']['Input'])['JobName']
+            grupo = params['GroupName']
+            cron_original = trigger['Schedule']
+
+            if revisar:
+                # A1: no lo creamos; lo dejamos marcado para decision humana.
+                fila['estado'] = 'revisar'
+                fila['nota'] = motivo_cron
+                fila['actualizado'] = ahora()
+                revisar_n += 1
+                print(f"  ⚠️  {nombre}: {motivo_cron} -> marcado 'revisar' (no se creó)")
+                continue
 
             if args.dry_run:
+                cambio = (f"  (cron {cron_original} -> {params['ScheduleExpression']})"
+                          if params['ScheduleExpression'] != cron_original else "")
                 print(f"  [DRY] crearía {params['Name']}")
-                print(f"         cron={params['ScheduleExpression']}  job={job}")
+                print(f"         grupo={grupo}  job={job}{cambio}")
                 continue
+
+            # Asegurar el grupo destino (idempotente; solo la 1a vez por grupo).
+            if grupo not in grupos_asegurados:
+                migrar_seguro.asegurar_grupo(scheduler, grupo)
+                grupos_asegurados.add(grupo)
 
             con_reintentos(scheduler.create_schedule, **params)
             fila['estado'] = 'creado'
-            fila['nota'] = ''
+            fila['nota'] = motivo_cron if params['ScheduleExpression'] != cron_original else ''
             fila['actualizado'] = ahora()
             creados += 1
-            print(f"  ✅ creado (DISABLED): {params['Name']}")
+            print(f"  ✅ creado (DISABLED) en '{grupo}': {params['Name']}")
             time.sleep(PAUSA_ENTRE_LLAMADAS)
 
         except ClientError as e:
@@ -230,7 +253,10 @@ def fase_crear_lote(glue, scheduler, filas, args):
 
     if not args.dry_run:
         guardar_control(filas)
-        print(f"\n  Resumen crear-lote: {creados} creados, {errores} errores.")
+        print(f"\n  Resumen crear-lote: {creados} creados, {revisar_n} a revisar (cron dia-especifico/overflow), {errores} errores.")
+        if revisar_n:
+            print(f"  ⚠️  Los 'revisar' NO se crearon: su ajuste de hora movería el DÍA (requiere OK negocio).")
+            print(f"      Míralos en el control (estado 'revisar') y decide su hora local con negocio.")
         print(f"  👉 Siguiente: python migrar_lote.py --paso verificar-lote --limit {args.limit or ''}")
 
 
@@ -255,15 +281,20 @@ def fase_verificar_lote(glue, scheduler, filas, args):
         nombre_sched = fila['schedule_name']
         try:
             trigger = con_reintentos(glue.get_trigger, Name=nombre)['Trigger']
-            sched = con_reintentos(scheduler.get_schedule, Name=nombre_sched)
+            grupo = reglas_migracion.grupo_destino(trigger['Actions'][0].get('JobName'))
+            sched = con_reintentos(scheduler.get_schedule, Name=nombre_sched, GroupName=grupo)
 
             t_job = trigger['Actions'][0].get('JobName')
             s_job = json.loads(sched['Target']['Input'])['JobName']
-            coincide = (trigger.get('Schedule') == sched['ScheduleExpression']) and (t_job == s_job)
+            # El cron del schedule pudo convertirse al crear (offset). Comparamos
+            # contra el cron ESPERADO tras aplicar la misma regla, no el original.
+            offset = reglas_migracion.offset_configurado()
+            cron_esperado, _, _ = reglas_migracion.convertir_cron_para_crear(trigger.get('Schedule', ''), offset)
+            coincide = (cron_esperado == sched['ScheduleExpression']) and (t_job == s_job)
 
             if args.dry_run:
-                print(f"  [DRY] verificaría {nombre_sched}: "
-                      f"cron {'=' if trigger.get('Schedule')==sched['ScheduleExpression'] else '≠'}, "
+                print(f"  [DRY] verificaría {nombre_sched} (grupo {grupo}): "
+                      f"cron {'=' if cron_esperado==sched['ScheduleExpression'] else '≠'}, "
                       f"job {'=' if t_job==s_job else '≠'}")
                 continue
 
@@ -274,7 +305,7 @@ def fase_verificar_lote(glue, scheduler, filas, args):
                 print(f"  ✅ verificado: {nombre_sched}")
             else:
                 fila['estado'] = 'error'
-                fila['nota'] = f'no coincide: cron/job (trigger {trigger.get("Schedule")}/{t_job})'
+                fila['nota'] = f'no coincide: cron esperado {cron_esperado} vs {sched["ScheduleExpression"]} / job {t_job} vs {s_job}'
                 malos += 1
                 print(f"  ❌ NO coincide: {nombre_sched}")
             fila['actualizado'] = ahora()
@@ -332,6 +363,7 @@ def fase_switch_lote(glue, scheduler, filas, args):
             #    CREATED     -> nunca arrancó: stop_trigger FALLA (InvalidInputException)
             trigger_viejo = con_reintentos(glue.get_trigger, Name=nombre)['Trigger']
             estado_glue = trigger_viejo.get('State')
+            grupo = reglas_migracion.grupo_destino(trigger_viejo['Actions'][0].get('JobName'))
 
             # 1. Apagar el Glue trigger viejo SOLO si estaba activo.
             if estado_glue == 'ACTIVATED':
@@ -342,10 +374,11 @@ def fase_switch_lote(glue, scheduler, filas, args):
             #    - Si estaba DEACTIVATED/CREATED  -> DISABLED (NO encender algo apagado)
             estado_schedule = 'ENABLED' if estado_glue == 'ACTIVATED' else 'DISABLED'
 
-            sched = con_reintentos(scheduler.get_schedule, Name=nombre_sched)
+            sched = con_reintentos(scheduler.get_schedule, Name=nombre_sched, GroupName=grupo)
             con_reintentos(
                 scheduler.update_schedule,
                 Name=nombre_sched,
+                GroupName=grupo,
                 ScheduleExpression=sched['ScheduleExpression'],
                 ScheduleExpressionTimezone=sched.get('ScheduleExpressionTimezone', migrar_seguro.TIMEZONE),
                 FlexibleTimeWindow=sched['FlexibleTimeWindow'],
@@ -484,10 +517,13 @@ def _correr_demo(args):
         print("\n### DEMO: switch-lote (auto-confirmado en demo) ###")
         # En demo evitamos el input() haciendo el switch a mano por fila.
         for fila in [f for f in filas if f['estado'] == 'verificado']:
+            tr = glue.get_trigger(Name=fila['trigger_name'])['Trigger']
+            grupo = reglas_migracion.grupo_destino(tr['Actions'][0].get('JobName'))
             glue.stop_trigger(Name=fila['trigger_name'])
-            s = scheduler.get_schedule(Name=fila['schedule_name'])
+            s = scheduler.get_schedule(Name=fila['schedule_name'], GroupName=grupo)
             scheduler.update_schedule(
-                Name=s['Name'], ScheduleExpression=s['ScheduleExpression'],
+                Name=s['Name'], GroupName=grupo,
+                ScheduleExpression=s['ScheduleExpression'],
                 FlexibleTimeWindow=s['FlexibleTimeWindow'], Target=s['Target'],
                 State='ENABLED', Description=s.get('Description', ''))
             fila['estado'] = 'migrado'

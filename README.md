@@ -27,8 +27,16 @@ pip install boto3
 python main.py
 ```
 
-Al abrir el menú, **empieza por la opción `0` (Configurar entorno)** para pegar
-tus credenciales temporales. Luego sigue el orden numérico.
+Al abrir el menú:
+1. **Opción `0` (Configurar entorno)** — pega tus credenciales temporales.
+2. **Opción `d` (Decisiones previas)** — define timezone, offset de cron y grupos
+   **ANTES de migrar**. Así cada schedule nace correcto y no hay que reparar nada.
+3. Luego sigue el orden numérico.
+
+> **Idea clave (lección aprendida):** el timezone, la corrección del cron y el
+> grupo se **deciden antes** y se **aplican al crear** cada schedule. La primera
+> vez migramos "tal cual" y después tuvimos que reparar todo a mano (retimezone
+> masivo, 486 crons, 521 cambios de grupo). Eso ya no pasa.
 
 ---
 
@@ -62,41 +70,67 @@ Copy-Item .env.example .env # Windows PowerShell
 Contenido:
 
 ```
+# Credenciales / conexión (opción 0 del menú)
 AWS_ACCESS_KEY_ID=...        # las 3 credenciales temporales del portal SSO
 AWS_SECRET_ACCESS_KEY=...
 AWS_SESSION_TOKEN=...
 AWS_DEFAULT_REGION=us-east-1
 SCHEDULER_ROLE_ARN=arn:aws:iam::<ACCOUNT_ID>:role/<ROL_SCHEDULER>
+
+# Decisiones previas (opción d del menú) — se aplican AL CREAR cada schedule
+TIMEZONE_MIGRACION=America/Santiago
+OFFSET_CRON=3                # 3=verano (UTC-3), 4=invierno (UTC-4), 0=no tocar el cron
+JOB_PRINCIPAL=sdlf-bigdata-redshift-segmentation-schedule-glue-job
+GRUPO_JOB_PRINCIPAL=datamanagement_stored_procedures
+GRUPO_RESTO=sdlf_bigdata_glue_jobs
 ```
 
 > ⚠️ Las credenciales temporales **caducan en horas**. Si ves `ExpiredToken`,
-> vuelve a la opción `0` y pégalas de nuevo.
+> vuelve a la opción `0` y pégalas de nuevo. (Guardar credenciales no borra las
+> decisiones previas, y viceversa: el `.env` se fusiona.)
+
+### Decisiones previas (opción `d`)
+
+Estas tres decisiones se definen **antes de migrar** y la migración las aplica
+**al crear** cada schedule:
+
+- **Timezone** → `America/Santiago` (ajusta verano/invierno solo).
+- **Offset de cron** → resta el desfase para dejar el cron en hora local.
+- **Grupo** → el schedule nace directo en su grupo real (no en `default`).
+
+Política de conversión del cron (segura):
+
+| Caso del cron | Qué hace |
+|---|---|
+| hora simple / lista de horas | convierte automáticamente |
+| diario de madrugada (`00:00`) | convierte (wrap inofensivo `00→21`) |
+| día-específico con wrap (viernes 01:00) | **no** convierte → marca `revisar` (requiere OK de negocio) |
+| alta frecuencia (cada N, rangos, `*`) | no toca (el timezone no la afecta) |
 
 ---
 
 ## El menú (`main.py`)
 
 ```
-  0) Configurar entorno (.env)                    <- empieza aquí
+  0) Configurar entorno (.env: credenciales + ARN)   <- primero
+  d) Decisiones previas (timezone + offset + grupo)  <- ANTES de migrar
 
   FASE 1 · PREPARACIÓN
   1) Generar inventario de triggers (control CSV)
   2) Respaldar definiciones de triggers           [red de seguridad]
 
-  FASE 2 · MIGRACIÓN
+  FASE 2 · MIGRACIÓN (crea YA con hora local + grupo real)
   3) Migrar UN trigger (paso a paso)
   4) Migrar por LOTES
+  5) Verificar estado de conversión               [auditoría]
 
-  FASE 3 · ZONA HORARIA Y CRONS
-  5) Cambiar timezone  UTC -> America/Santiago
-  6) Corregir crons desfasados (hora simple)
-  7) Corregir crons con lista de horas (1,14,19...)
-  8) Verificar estado de conversión               [auditoría]
-
-  FASE 4 · ORGANIZACIÓN
+  REMEDIACIÓN (solo para migraciones ANTIGUAS mal creadas)
+  6) Cambiar timezone  UTC -> America/Santiago
+  7) Corregir crons desfasados (hora simple)
+  8) Corregir crons con lista de horas (1,14,19...)
   9) Mover schedules a su grupo real
 
-  FASE 5 · LIMPIEZA
+  LIMPIEZA
  10) Borrar triggers obsoletos                     [con respaldo]
 
   UTILIDADES
@@ -104,24 +138,28 @@ SCHEDULER_ROLE_ARN=arn:aws:iam::<ACCOUNT_ID>:role/<ROL_SCHEDULER>
  12) Guía rápida / lecciones aprendidas
 ```
 
+> Las opciones **6–9 son remediación**: solo sirven para arreglar schedules
+> **antiguos** que se crearon mal. Si migras con las decisiones previas
+> definidas (opción `d`), **no las necesitas** — los schedules ya nacen bien.
+
 ---
 
 ## Flujo recomendado (orden completo)
 
 1. **`0` Configurar `.env`** — credenciales + ARN del rol.
-2. **`1` Inventario** — crea `control_migracion.csv`, la **fuente de verdad**.
-3. **`2` Respaldar** — guarda cada definición en `respaldos/*.json` (red de seguridad).
-4. **`3`/`4` Migrar** — crea los schedules **DESACTIVADOS**, verifica, y recién
-   entonces hace el *switch* (apaga el viejo, prende el nuevo).
-5. **`5` Timezone** — pasa los schedules a `America/Santiago`.
-6. **`6`/`7` Corregir crons** — resta el offset horario a los crons desfasados.
-7. **`8` Verificar** — auditoría de solo lectura; corre antes y después.
-8. **`9` Mover a grupos** — reorganiza del grupo `default` al grupo real.
-9. **`10` Borrar** — días después, elimina los triggers viejos (con respaldo).
+2. **`d` Decisiones previas** — timezone, offset de cron y grupos. **Antes de migrar.**
+3. **`1` Inventario** — crea `control_migracion.csv`, la **fuente de verdad**.
+4. **`2` Respaldar** — guarda cada definición en `respaldos/*.json` (red de seguridad).
+5. **`3`/`4` Migrar** — crea los schedules **DESACTIVADOS**, ya con hora local y
+   grupo real; verifica; y recién entonces hace el *switch* (apaga el viejo, prende
+   el nuevo). Los crons delicados (día-específico con wrap) quedan marcados
+   `revisar` y **no** se crean hasta que un humano decida.
+6. **`5` Verificar** — auditoría de solo lectura para confirmar el resultado.
+7. **`10` Borrar** — días después, elimina los triggers viejos (con respaldo).
 
-**Reglas de oro:** siempre respalda antes de tocar · siempre `--dry-run` primero ·
-escala de a poco (1 → 5 → 10 → masivo) · nunca dejes el trigger viejo y el schedule
-nuevo activos a la vez.
+**Reglas de oro:** define las decisiones antes de migrar · siempre respalda antes
+de tocar · siempre `--dry-run` primero · escala de a poco (1 → 5 → 10 → masivo) ·
+nunca dejes el trigger viejo y el schedule nuevo activos a la vez.
 
 ---
 
@@ -135,16 +173,17 @@ migracion-final/
 ├── .gitignore
 ├── CONFLUENCE_...md          # documentación de contexto
 └── scripts/
-    ├── config_entorno.py     # crea/lee el .env (opción 0)
+    ├── config_entorno.py     # crea/lee el .env: credenciales (op 0) y decisiones (op d)
+    ├── reglas_migracion.py    # reglas que se aplican AL CREAR: offset de cron + grupo destino
     ├── generar_control.py     # inventario -> control_migracion.csv
     ├── respaldar_triggers.py  # respaldos/*.json
-    ├── migrar_seguro.py       # migración segura de 1 trigger (crear/verificar/switch/rollback)
+    ├── migrar_seguro.py       # migración segura de 1 trigger (crea con hora local + grupo real)
     ├── migrar_lote.py         # las mismas fases, por lotes
-    ├── retimezone_lote.py     # UTC -> America/Santiago
-    ├── convertir_cron_pendientes.py    # corrige crons de hora simple
-    ├── convertir_cron_listas_horas.py  # corrige crons con lista de horas
+    ├── retimezone_lote.py     # [remediación] UTC -> America/Santiago
+    ├── convertir_cron_pendientes.py    # [remediación] corrige crons de hora simple
+    ├── convertir_cron_listas_horas.py  # [remediación] corrige crons con lista de horas
     ├── verificar_conversion.py         # auditoría de conversión
-    ├── mover_grupo.py         # default -> grupo real (recrear + borrar)
+    ├── mover_grupo.py         # [remediación] default -> grupo real (recrear + borrar)
     ├── borrar_triggers.py     # elimina triggers obsoletos (con respaldo)
     ├── reglas_exclusion.py    # reglas de nombres y exclusiones (módulo)
     ├── reporte_seguimiento.py # reporte HTML
@@ -161,38 +200,43 @@ ya aplica los parámetros y el orden correctos.
 Estas son las decisiones y errores resueltos durante la migración real. Están
 también en la **opción 12** del menú.
 
+### La lección más importante: decidir ANTES de migrar
+La primera vez migramos "tal cual" (mismo cron, sin grupo) y **después** tuvimos
+que reparar todo a mano: retimezone masivo, corregir **486** crons desfasados y
+mover **521** schedules de grupo. Tedioso y arriesgado. La solución de fondo:
+definir timezone, offset y grupo **antes** (opción `d`) y **aplicarlos al crear**
+cada schedule → nace correcto y no hay nada que reparar.
+
 ### Zona horaria
-- Usar **`America/Santiago`** como timezone de los schedules: ajusta verano/invierno
-  automáticamente (no hay que tocar nada dos veces al año).
-- **Trampa:** cambiar solo el *timezone* de un schedule **mueve su hora real de
-  disparo**. Si el cron venía en hora UTC, queda desfasado → hay que restarle el
-  offset al cron (opciones 6 y 7).
+- Usar **`America/Santiago`** como timezone: ajusta verano/invierno automáticamente.
+- **Trampa:** el timezone por sí solo **no** ajusta el cron. Por eso el offset se
+  aplica al cron **en el mismo momento de crear** el schedule (no después).
 
 ### Offset por cambio de hora (DST)
-- Lo respaldado/migrado **antes** del cambio de hora usa **offset 4** (invierno, UTC-4).
-- Lo posterior usa **offset 3** (verano, UTC-3).
-- Por eso los scripts de corrección piden el offset explícito: depende de cuándo se migró.
+- **Verano** Chile → offset **3** (UTC-3). **Invierno** → offset **4** (UTC-4).
+- Se define en la opción `d` (`OFFSET_CRON`) según la temporada en que migras.
 
 ### Cron "wrap" (cruce de medianoche)
 - Al restar el offset, una hora de madrugada puede cruzar medianoche
-  (`00:00` → `21:00` del día anterior).
-- Para procesos **diarios** es inofensivo (corren igual cada día) → flag
-  `--convertir-diario-madrugada`.
-- Para procesos de **día específico** (viernes, día 12) el wrap **cambia el día**
-  → requiere OK de negocio → flag `--permitir-wrap-dia`.
+  (`00:00` → `21:00`).
+- Para procesos **diarios** es inofensivo (corren igual cada día) → **se convierte**.
+- Para **día específico** (viernes, día 12) el wrap **cambia el día** → **no se
+  convierte**, se marca `revisar` para que negocio decida.
 
 ### Alta frecuencia
-- Crons cada hora, cada N minutos, o con rangos amplios (`12-0`, `*/3`) **no
-  necesitan** corrección de timezone: corren igual sin importar la hora. **No se tocan.**
+- Crons cada hora, cada N minutos, o con rangos amplios (`12-0`, `*/3`, `*`) **no
+  se tocan**: corren igual sin importar la hora.
 
 ### Nombres de schedule
 - EventBridge limita el nombre a **64 caracteres** y no acepta `:` ni `ñ`.
 - Regla aplicada: quitar prefijo `sdlf-bigdata-` y sufijo `-glue`; `:` → `-`;
-  `ñ` → `n`. Los renombrados quedaron documentados durante el proceso.
+  `ñ` → `n`.
 
 ### Grupos
-- El `GroupName` de un schedule es **inmutable** → "mover de grupo" = **recrear + borrar**.
-- El script lo hace seguro: respalda → crea DISABLED en el grupo nuevo → borra el
+- El `GroupName` de un schedule es **inmutable**. Por eso al **crear** ya se pone
+  el grupo real (no `default`), evitando el "mover" posterior.
+- Si aún tienes schedules antiguos en `default`, la opción **9 (remediación)** los
+  mueve de forma segura: respalda → crea DISABLED en el grupo nuevo → borra el
   viejo → activa. Así nunca hay doble ejecución.
 - Regla de negocio: solo el job **principal**
   (`sdlf-bigdata-redshift-segmentation-schedule-glue-job`) va a
